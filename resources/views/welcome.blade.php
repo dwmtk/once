@@ -80,20 +80,11 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                <a href="{{ action('EventController@list', 'manabu') }}">マナブ</a>
+                <a href="{{ action('EventController@list', 'asobu') }}">アソブ</a>
+                <a href="{{ action('EventController@list', 'tsukuru') }}">ツクル</a>
+                <a href="{{ action('EventController@list', 'deau') }}">デアウ</a>
+                <a href="{{ action('EventController@list', 'intention') }}">intention</a>
             </div>
         </div>
     </body>

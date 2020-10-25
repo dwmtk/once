@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/event/list/{category}', 'EventController@list');
+Route::get('/event/detail/{event_id}', 'EventController@detail')->name('event/detail');
+Route::post('/event/end', 'HomeController@attend');
+Route::post('/event/quit', 'HomeController@quit');
