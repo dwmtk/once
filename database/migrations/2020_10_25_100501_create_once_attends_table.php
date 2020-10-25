@@ -16,8 +16,8 @@ class CreateOnceAttendsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->string('event_id', 5);
             $table->string('user_id', 5);
-            $table->string('attend_flg', 1)
-            ->default('1');
+            $table->string('quit_flg', 1)
+            ->default('0');
             $table->timestamps();
             // 複合キー
             $table->primary(['event_id', 'user_id']);
