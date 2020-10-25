@@ -20,6 +20,10 @@ class AddOnce extends Migration
             $table->string('sex', 1)->after('work');
             $table->string('prefecture', 2)->after('sex');
             $table->string('city', 50)->after('prefecture');
+            $table->string('quit_flg', 1)->after('city')
+            ->default('0');
+            $table->string('user_type', 1)->after('quit_flg')
+            ->default('1');
         });
     }
 
