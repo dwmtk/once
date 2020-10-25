@@ -12,6 +12,20 @@
                         @csrf
 
                         <div class="form-group row">
+                            <label for="nickname" class="col-md-4 col-form-label text-md-right">ニックネーム</label>
+
+                            <div class="col-md-6">
+                                <input type="text" class="form-control @error('nickname') is-invalid @enderror" name="nickname" value="{{ old('nickname') }}" required>
+
+                                @error('nickname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
@@ -32,6 +46,70 @@
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="work" class="col-md-4 col-form-label text-md-right">職業</label>
+
+                            <div class="col-md-6">
+                                <input type="text" class="form-control @error('work') is-invalid @enderror" name="work" value="{{ old('work') }}" required>
+
+                                @error('work')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="sex" class="col-md-4 col-form-label text-md-right">性別</label>
+
+                            <div class="col-md-6 my-auto text-center">
+                                
+                                <input type="radio" class="@error('sex') is-invalid @enderror" name="sex" value="1" checked> 男
+                                <input type="radio" class="@error('sex') is-invalid @enderror" name="sex" value="2"> 女
+                                
+                                @error('sex')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">お住まいの地域</label>
+
+                            <div class="col-md-3">
+                                <select class="form-control @error('prefecture') is-invalid @enderror" name="prefecture" value="{{ old('prefecture') }}" required>
+
+                                    @foreach (config('prefs') as $key => $pref)
+                                    <option value="{{ $key }}"
+                                        @if ($key == '23')
+                                            selected="selected"
+                                        @endif
+                                    >{{ $pref }}</option>
+                                    @endforeach
+                                    
+                                </select>
+
+                                @error('work')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-3">
+                                <input type="text" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" placeholder="(例)名古屋市" required>
+
+                                @error('city')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
