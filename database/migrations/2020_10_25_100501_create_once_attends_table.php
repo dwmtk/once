@@ -13,7 +13,7 @@ class CreateOnceAttendsTable extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('attends', function (Blueprint $table) {
             $table->string('event_id', 5);
             $table->string('user_id', 5);
             $table->string('quit_flg', 1)
@@ -31,6 +31,6 @@ class CreateOnceAttendsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('attends');
     }
 }
