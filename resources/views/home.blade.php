@@ -18,14 +18,15 @@
                     @forelse($my_events as $my_event)
                         <div>
                         <a href="{{ action('EventController@detail', $my_event->event_id) }}">{{ $my_event->name }}</a>
-                        @if($my_event->quit_flg = 0)
+                        @if($my_event->quit_flg == 0)
                         <form method="POST" action="{{ url('event/quit') }}" class="d-inline-block">
-                        @csrf
-                            <input type="submit" class="btn btn-sm btn-primary" value="欠席">
+                            @csrf
+                            <input type="submit" class="btn btn-sm btn-primary" value="欠席する">
                             <input type="hidden" name="execute" value="on">
                             <input type="hidden" name="id" value="{{ $my_event->id }}">
                         </form>
-                        @elseif($my_event->quit_flg = 1)
+                        @elseif($my_event->quit_flg == 1)
+                        <button class="btn btn-sm btn-primary" disabled>欠席する</button>
                         <span class="badge badge-danger">欠席済み</span>
                         @endif
                         </div>

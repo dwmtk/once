@@ -26,7 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $my_events = Attend::getAttendEvents(Auth::id());
+        // ユーザが参加済みの一覧を取得　※欠席も含む
+        $my_events = Attend::getAttendEventsAll(Auth::id());
         return view('home')
         ->with([
             'my_events' => $my_events
@@ -34,8 +35,9 @@ class HomeController extends Controller
     }
     public function attend(Request $request){
         $event = Event::where('id', $request->event_id)->first();
-        // 参加済みかの確認
-        $attend = Attend::where('user_id', Auth::id())->where('event_id', $event->id)->first();
+        // 参加済みかの確認　※欠席を含む
+        // $attend = Attend::where('user_id', Auth::id())->where('event_id', $event->id)->first();
+        $attend = Attend::getAttendAll(Auth::id(), $event->id);
         if(!empty($attend)){
             if($attend->quit_flg == 0){
                 // 参加履歴あり
@@ -85,11 +87,9 @@ class HomeController extends Controller
 
             return redirect('home')
             ->with([
-                'success_quit' => 'イベントの辞退が完了しました。'
+                'success_quit' => 'イベントの欠席が完了しました。'
                 ]);
         }
         return redirect('home');
-
     }
-
 }

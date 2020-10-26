@@ -31,6 +31,7 @@
                 <h1>{{ $event->name }}</h1>
                 <div>開催日：{{ date('Y/m/d H:i', strtotime($event->start)) }} ~ {{ date('Y/m/d H:i', strtotime($event->end)) }}</div>
                 <div>定員：{{ $event->capacity }}人／参加：{{ $event->number }}人</div>
+                <p>{{ html_entity_decode($event->content) }}</p>
                 <p>{{ $event->content }}</p>
                 @if( $event->capacity > $event->number )
                     @if(Auth::check())
