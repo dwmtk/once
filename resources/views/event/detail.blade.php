@@ -6,27 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">イベント詳細</div>
-                @if (session('error_aleady'))
-                    <div class="container mt-2">
-                    <div class="alert alert-danger">
-                        {{session('error_aleady')}}
-                    </div>
-                    </div>
-                @endif
-                @if (session('error_aleady_quit'))
-                    <div class="container mt-2">
-                    <div class="alert alert-danger">
-                        {{session('error_aleady_quit')}}
-                    </div>
-                    </div>
-                @endif
-                @if (session('success_attend'))
-                    <div class="container mt-2">
-                    <div class="alert alert-success">
-                        {{session('success_attend')}}
-                    </div>
-                    </div>
-                @endif
+                @include('layouts.alert')
                 <div class="card-body">
 
                 <h1>{{ $event->name }}</h1>

@@ -48,13 +48,13 @@ class HomeController extends Controller
                 // 参加履歴あり
                 return redirect()->back()
                 ->with([
-                    'error_aleady' => 'すでに参加済みのイベントです。',
+                    'error' => 'すでに参加済みのイベントです。',
                 ]);
             } elseif($attend->quit_flg == 1) {
                 // 欠席履歴あり
                 return redirect()->back()
                 ->with([
-                    'error_aleady_quit' => '一度欠席したため参加できません。再参加したい場合はお問い合わせフォームからお願いします。',
+                    'error' => '一度欠席したため参加できません。再参加したい場合はお問い合わせフォームからお願いします。',
                 ]);
             }
         }
@@ -72,7 +72,7 @@ class HomeController extends Controller
 
             return redirect()->back()
             ->with([
-                'success_attend' => '参加完了しました。参加済みのイベントはマイページから閲覧できます。',
+                'success' => '参加完了しました。参加済みのイベントはマイページから閲覧できます。',
             ]);
         }
         return view('error');
@@ -101,7 +101,7 @@ class HomeController extends Controller
 
             return redirect('home')
             ->with([
-                'success_quit' => 'イベントの欠席が完了しました。'
+                'success' => 'イベントの欠席が完了しました。'
                 ]);
         }
         return redirect('home');
@@ -133,16 +133,33 @@ class HomeController extends Controller
         Auth::user()->save();
         return redirect('home/edit')
         ->with([
-            'success_edit' => '個人情報の変更が完了しました。'
+            'success' => '個人情報の変更が完了しました。'
         ]);
     }
     public function edit_password_get(){
         return view('home/edit_password');
     }
     public function edit_password_post(Request $request){
+        // 入力チェック
+        $this -> Validate($request, [
+            'password_old' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        //現在のパスワードが正しいかを調べる
+        if(!(Hash::check($request->password_old, Auth::user()->password))) {
+            return redirect()->back()->with(['error' => '現在のパスワードが間違っています。']);
+        }
+        //現在のパスワードと新しいパスワードが違っているかを調べる
+        if(strcmp($request->password_old, $request->password) == 0) {
+            return redirect()->back()->with(['error' => '新しいパスワードが現在のパスワードと同じです。違うパスワードを設定してください。']);
+        }
+        //パスワードを変更
+        $user = Auth::user();
+        $user->password = bcrypt($request->password);
+        $user->save();
         return view('home')
         ->with([
-            'success_edit_password' => 'パスワードの変更が完了しました。'
+            'success' => 'パスワードの変更が完了しました。'
         ]);
     }
 }

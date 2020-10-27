@@ -54,7 +54,7 @@ class ManageController extends Controller
         $event->save();
         return redirect('manage/index')
         ->with([
-            'success_insert' => 'イベントの新規作成を行いました。'
+            'success' => 'イベントの新規作成を行いました。'
         ]);
     }
     public function update_get($event_id){
@@ -87,7 +87,7 @@ class ManageController extends Controller
         // return redirect('manage/index')
         return redirect()->back()
         ->with([
-            'success_update' => 'イベントの編集が完了しました。'
+            'success' => 'イベントの編集が完了しました。'
         ]);
     }
     public function stop($event_id){

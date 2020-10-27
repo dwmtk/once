@@ -6,13 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">管理者ページ</div>
-                @if (session('success_insert'))
-                    <div class="container mt-2">
-                    <div class="alert alert-success">
-                        {{session('success_insert')}}
-                    </div>
-                    </div>
-                @endif
+                @include('layouts.alert')
                 <div class="card-body">
                     <h5>利用者一覧</h5>
                     <a href="{{ url('manage/member_list') }}">・利用者一覧</a>

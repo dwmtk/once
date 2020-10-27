@@ -6,6 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">新規作成</div>
+                @include('layouts.alert')
                 <div class="card-body">
                     <form method="POST" action="{{ url('manage/insert') }}" class="col-md-12" onSubmit="return dialog('イベントを新規作成しますか？')">
                     @csrf

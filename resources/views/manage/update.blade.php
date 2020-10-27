@@ -6,13 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">イベント詳細・編集画面　<a href="{{ action('ManageController@stop', $event->id) }}" class="btn btn-warning btn-sm disabled">募集を打ち切る※未実装</a></div>
-                @if (session('success_update'))
-                    <div class="container mt-2">
-                    <div class="alert alert-success">
-                        {{session('success_update')}}
-                    </div>
-                    </div>
-                @endif
+                @include('layouts.alert')
                 <div class="card-body">
                 <h5>参加者一覧（定員：{{ $event->capacity }}人／参加：{{ $event->number }}人）</h5>
                 <ul class="list-group">

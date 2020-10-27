@@ -6,6 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">利用者一覧</div>
+                @include('layouts.alert')
                 <div class="card-body">
                     <ul class="list-group">
                     @forelse($users as $user)

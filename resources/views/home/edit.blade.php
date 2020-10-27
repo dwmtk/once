@@ -6,13 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">プロフィール設定<a class="btn btn-sm btn-outline-secondary float-right" href="{{ url('home/edit_password') }}">パスワード変更</a></div>
-                @if (session('success_edit'))
-                    <div class="container mt-2">
-                    <div class="alert alert-success">
-                        {{session('success_edit')}}
-                    </div>
-                    </div>
-                @endif
+                @include('layouts.alert')
                 <div class="card-body">
                     <form method="POST" action="{{ action('HomeController@edit_post') }}" onSubmit="return dialog('プロフィールを更新しますか？')">
                         @csrf
