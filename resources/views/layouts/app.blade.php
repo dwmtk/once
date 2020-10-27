@@ -11,7 +11,18 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <!-- 確認ダイアログ -->
+    <script>
+        function dialog(message){
+            // 「OK」時の処理開始 ＋ 確認ダイアログの表示
+            if(window.confirm(message)){
+                return true;
+            }
+            else{ // 「キャンセル」時の処理
+                return false; // 送信を中止
+            }
+        }
+    </script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">

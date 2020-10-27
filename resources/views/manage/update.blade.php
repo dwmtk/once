@@ -47,8 +47,9 @@
                     <li class="list-group-item">参加者はいません</li>
                 @endforelse
                 </ul>
+
                 <h5 class="mt-4">イベント詳細・編集　<a class="btn btn-sm btn-outline-secondary" href="{{ action('EventController@detail', $event->id) }}">詳細画面</a></h5>
-                <form method="POST" action="{{ url('manage/update') }}" class="col-md-12">
+                <form method="POST" action="{{ url('manage/update') }}" class="col-md-12" onSubmit="return dialog('イベントを編集してよろしいですか？')">
                     @csrf
                     <div class="form-group">
                         <label for="name" class="col-md-3 col-form-label">イベント名</label>

@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">新規作成</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ url('manage/insert') }}" class="col-md-12">
+                    <form method="POST" action="{{ url('manage/insert') }}" class="col-md-12" onSubmit="return dialog('イベントを新規作成しますか？')">
                     @csrf
                         <div class="form-group">
                             <label for="name" class="col-md-3 col-form-label">イベント名</label>

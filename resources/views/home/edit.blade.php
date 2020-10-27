@@ -14,7 +14,7 @@
                     </div>
                 @endif
                 <div class="card-body">
-                    <form method="POST" action="{{ action('HomeController@edit_post') }}">
+                    <form method="POST" action="{{ action('HomeController@edit_post') }}" onSubmit="return dialog('プロフィールを更新しますか？')">
                         @csrf
                         <div class="form-group row">
                             <label for="nickname" class="col-md-3 col-form-label">ニックネーム</label>
