@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use App\Event;
 use App\Attend;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\MailSendController;
+use Mail;
+use App\Mail\SendAttendMail;
+use App\Mail\SendQuitMail;
+use App\Mail\SendRegisterMail;
 
 class HomeController extends Controller
 {
@@ -60,6 +65,11 @@ class HomeController extends Controller
             $attend->save();
             $event->number = $event->number + 1;
             $event->save();
+            
+            // 参加完了メール送信
+            $to = [['email' => Auth::user()->email, 'name' => Auth::user()->nickname.'様']];
+            Mail::to($to)->send(new SendAttendMail(Auth::user(), $event));
+
             return redirect()->back()
             ->with([
                 'success_attend' => '参加完了しました。参加済みのイベントはマイページから閲覧できます。',
@@ -84,6 +94,10 @@ class HomeController extends Controller
             $event = Event::find($attend->event_id);
             $event->number = $event->number - 1;
             $event->save();
+
+            // 欠席完了メール送信
+            $to = [['email' => Auth::user()->email, 'name' => Auth::user()->nickname.'様']];
+            Mail::to($to)->send(new SendQuitMail(Auth::user(), $event));
 
             return redirect('home')
             ->with([

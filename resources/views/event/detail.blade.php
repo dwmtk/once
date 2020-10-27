@@ -6,7 +6,6 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">イベント詳細</div>
-                <div class="card-body">
                 @if (session('error_aleady'))
                     <div class="container mt-2">
                     <div class="alert alert-danger">
@@ -28,6 +27,8 @@
                     </div>
                     </div>
                 @endif
+                <div class="card-body">
+
                 <h1>{{ $event->name }}</h1>
                 <div>開催日：{{ date('Y/m/d H:i', strtotime($event->start)) }} ~ {{ date('Y/m/d H:i', strtotime($event->end)) }}</div>
                 <div>定員：{{ $event->capacity }}人／参加：{{ $event->number }}人</div>
@@ -55,6 +56,7 @@
                         <p>・参加者は居ません</p>
                     @endforelse
                 </div>
+                
                 </div>
             </div>
         </div>

@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Mail\SendRegisterMail;
 
 class RegisterController extends Controller
 {
@@ -69,6 +70,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // 会員登録完了メール送信
+        $to = [['email' => Auth::user()->email, 'name' => Auth::user()->nickname.'様']];
+        Mail::to($to)->send(new SendRegisterMail(Auth::user()));
+
         return User::create([
             'name' => $data['name'],
             'nickname' => $data['nickname'],
