@@ -7,6 +7,20 @@
             <div class="card">
                 <div class="card-header">管理者ページ</div>
                 <div class="card-body">
+                    @if (session('success_insert'))
+                        <div class="container mt-2">
+                        <div class="alert alert-success">
+                            {{session('success_insert')}}
+                        </div>
+                        </div>
+                    @endif
+                    @if (session('success_update'))
+                        <div class="container mt-2">
+                        <div class="alert alert-success">
+                            {{session('success_update')}}
+                        </div>
+                        </div>
+                    @endif
                     <h5>利用者一覧</h5>
                     <a href="{{ url('manage/member_list') }}">・利用者一覧</a>
                     <h5 class="mt-4">イベント一覧</h5>　
@@ -27,15 +41,15 @@
                             <div>
                                 {{ $event->name }}
                                 @if( $event->category == 'manabu' )
-                                <div class="badge badge-primary">マナブ</div>
+                                <div class="badge badge-warning">マナブ</div>
                                 @elseif( $event->category == 'asobu' )
-                                <div class="badge badge-primary">アソブ</div>
+                                <div class="badge badge-warning">アソブ</div>
                                 @elseif( $event->category == 'tsukuru' )
-                                <div class="badge badge-primary">ツクル</div>
+                                <div class="badge badge-warning">ツクル</div>
                                 @elseif( $event->category == 'deau' )
-                                <div class="badge badge-primary">デアウ</div>
+                                <div class="badge badge-warning">デアウ</div>
                                 @elseif( $event->category == 'intention' )
-                                <div class="badge badge-primary">intention</div>
+                                <div class="badge badge-warning">intention</div>
                                 @endif
                             </div>
                             <small class="d-block float-md-left

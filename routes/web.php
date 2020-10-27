@@ -18,6 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/edit', 'HomeController@edit_get');
+Route::post('/home/edit', 'HomeController@edit_post');
+Route::get('/home/edit_password', 'HomeController@edit_password_get');
+Route::post('/home/edit_password', 'HomeController@edit_password_post');
+
 Route::get('/event/list/{category}', 'EventController@list');
 Route::get('/event/detail/{event_id}', 'EventController@detail')->name('event/detail');
 Route::post('/event/end', 'HomeController@attend');

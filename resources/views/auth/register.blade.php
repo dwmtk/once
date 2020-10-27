@@ -72,8 +72,8 @@
 
                             <div class="col-md-6 my-auto text-center">
                                 
-                                <input type="radio" class="@error('sex') is-invalid @enderror" name="sex" value="1" checked> 男
-                                <input type="radio" class="@error('sex') is-invalid @enderror" name="sex" value="2"> 女
+                                <input type="radio" class="@error('sex') is-invalid @enderror" name="sex" value="1" checked> 男性
+                                <input type="radio" class="@error('sex') is-invalid @enderror" name="sex" value="2"> 女性
                                 
                                 @error('sex')
                                     <span class="invalid-feedback" role="alert">

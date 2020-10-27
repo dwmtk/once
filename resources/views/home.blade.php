@@ -5,15 +5,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">マイページ</div>
-                <div class="card-body">
-                    @if (session('success_quit'))
+                <div class="card-header">マイページ<a class="btn btn-sm btn-outline-secondary float-right" href="{{ url('home/edit') }}">プロフィール編集</a></div>
+                @if (session('success_quit'))
                         <div class="container mt-2">
                         <div class="alert alert-danger">
                             {{session('success_quit')}}
                         </div>
                         </div>
                     @endif
+                <div class="card-body">
                     ・参加イベント一覧
                     @forelse($my_events as $my_event)
                         <div>

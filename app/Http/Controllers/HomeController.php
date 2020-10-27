@@ -92,4 +92,43 @@ class HomeController extends Controller
         }
         return redirect('home');
     }
+
+    public function edit_get(){
+        return view('home/edit');
+    }
+    public function edit_post(Request $request){
+        // 入力チェック
+        $this -> Validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'nickname' => ['required', 'string', 'max:50'],
+            'work' => ['required', 'string', 'max:255'],
+            'prefecture' => ['required', 'string', 'max:2'],
+            'city' => ['required', 'string', 'max:50'],
+        ]);
+        if(Auth::user()->email != $request->email){
+            $this -> Validate($request, [
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            ]);
+            Auth::user()->email = $request->email;
+        }
+        Auth::user()->nickname = $request->nickname;
+        Auth::user()->name = $request->name;
+        Auth::user()->work = $request->work;
+        Auth::user()->prefecture = $request->prefecture;
+        Auth::user()->city = $request->city;
+        Auth::user()->save();
+        return redirect('home/edit')
+        ->with([
+            'success_edit' => '個人情報の変更が完了しました。'
+        ]);
+    }
+    public function edit_password_get(){
+        return view('home/edit_password');
+    }
+    public function edit_password_post(Request $request){
+        return view('home')
+        ->with([
+            'success_edit_password' => 'パスワードの変更が完了しました。'
+        ]);
+    }
 }
