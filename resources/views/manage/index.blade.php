@@ -6,21 +6,14 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">管理者ページ</div>
+                @if (session('success_insert'))
+                    <div class="container mt-2">
+                    <div class="alert alert-success">
+                        {{session('success_insert')}}
+                    </div>
+                    </div>
+                @endif
                 <div class="card-body">
-                    @if (session('success_insert'))
-                        <div class="container mt-2">
-                        <div class="alert alert-success">
-                            {{session('success_insert')}}
-                        </div>
-                        </div>
-                    @endif
-                    @if (session('success_update'))
-                        <div class="container mt-2">
-                        <div class="alert alert-success">
-                            {{session('success_update')}}
-                        </div>
-                        </div>
-                    @endif
                     <h5>利用者一覧</h5>
                     <a href="{{ url('manage/member_list') }}">・利用者一覧</a>
                     <h5 class="mt-4">イベント一覧</h5>　
