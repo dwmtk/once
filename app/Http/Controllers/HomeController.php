@@ -29,9 +29,6 @@ class HomeController extends Controller
     {
         // ユーザが参加済みの一覧を取得　※欠席も含む
         $my_events = Attend::getAttendEventsAll(Auth::id());
-        return view('home')
-        ->with([
-            'my_events' => $my_events
-        ]);
+        return view('home')->with(['my_events' => $my_events]);
     }
 }

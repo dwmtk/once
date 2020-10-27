@@ -24,23 +24,16 @@ class AttendController extends Controller
     }
 
     public function attend(Request $request){
-        $event = Event::where('id', $request->event_id)->first();
+        $event = Event::find($request->event_id);
         // 参加済みかの確認　※欠席を含む
-        // $attend = Attend::where('user_id', Auth::id())->where('event_id', $event->id)->first();
         $attend = Attend::getAttendAll(Auth::id(), $event->id);
         if(!empty($attend)){
             if($attend->quit_flg == 0){
                 // 参加履歴あり
-                return redirect()->back()
-                ->with([
-                    'error' => 'すでに参加済みのイベントです。',
-                ]);
+                return redirect()->back()->with(['error' => 'すでに参加済みのイベントです。',]);
             } elseif($attend->quit_flg == 1) {
                 // 欠席履歴あり
-                return redirect()->back()
-                ->with([
-                    'error' => '一度欠席したため参加できません。再参加したい場合はお問い合わせフォームからお願いします。',
-                ]);
+                return redirect()->back()->with(['error' => '一度欠席したため参加できません。再参加したい場合はお問い合わせフォームからお願いします。',]);
             }
         }
         if($event->capacity > $event->number){
@@ -55,10 +48,7 @@ class AttendController extends Controller
             $to = [['email' => Auth::user()->email, 'name' => Auth::user()->nickname.'様']];
             Mail::to($to)->send(new SendAttendMail(Auth::user(), $event));
 
-            return redirect()->back()
-            ->with([
-                'success' => '参加完了しました。参加済みのイベントはマイページから閲覧できます。',
-            ]);
+            return redirect()->back()->with(['success' => '参加完了しました。参加済みのイベントはマイページから閲覧できます。',]);
         }
         return view('error');
     }
@@ -85,10 +75,7 @@ class AttendController extends Controller
             $to = [['email' => Auth::user()->email, 'name' => Auth::user()->nickname.'様']];
             Mail::to($to)->send(new SendQuitMail(Auth::user(), $event));
 
-            return redirect('home')
-            ->with([
-                'success' => 'イベントの欠席が完了しました。'
-                ]);
+            return redirect('home')->with(['success' => 'イベントの欠席が完了しました。']);
         }
         return redirect('home');
     }

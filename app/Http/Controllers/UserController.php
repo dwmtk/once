@@ -48,17 +48,14 @@ class UserController extends Controller
         Auth::user()->prefecture = $request->prefecture;
         Auth::user()->city = $request->city;
         Auth::user()->save();
-        return redirect('home/edit')
-        ->with([
-            'success' => '個人情報の変更が完了しました。'
-        ]);
+        return redirect('home/edit')->with(['success' => '個人情報の変更が完了しました。']);
     }
     public function edit_password_get(){
-        // パスワード編集ページを開く
+        // パスワード変更ページを開く
         return view('home/edit_password');
     }
     public function edit_password_post(Request $request){
-        // パスワード編集処理
+        // パスワード変更処理
         
         // 入力チェック
         $this -> Validate($request, [
@@ -77,9 +74,6 @@ class UserController extends Controller
         $user = Auth::user();
         $user->password = bcrypt($request->password);
         $user->save();
-        return redirect('home')
-        ->with([
-            'success' => 'パスワードの変更が完了しました。'
-        ]);
+        return redirect('home')->with(['success' => 'パスワードの変更が完了しました。']);
     }
 }

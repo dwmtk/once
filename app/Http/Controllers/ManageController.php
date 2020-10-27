@@ -13,23 +13,17 @@ class ManageController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-
         $this->middleware(function ($request, $next) {
-
             if(Auth::user()->user_type != 2){
                 // 管理者ユーザ以外の場合はホーム画面にリダイレクト
                 return redirect('home');
             }
-
             return $next($request);
         });
     }
     public function index(){
         $events = Event::orderBy('id', 'desc')->get();
-        return view('manage/index')
-        ->with([
-            'events' => $events
-        ]);
+        return view('manage/index')->with(['events' => $events]);
     }
     public function insert_get(){
         return view('manage/insert');
@@ -52,19 +46,12 @@ class ManageController extends Controller
         $event->start = $request->start;
         $event->end = $request->end;
         $event->save();
-        return redirect('manage/index')
-        ->with([
-            'success' => 'イベントの新規作成を行いました。'
-        ]);
+        return redirect('manage/index')->with(['success' => 'イベントの新規作成を行いました。']);
     }
     public function update_get($event_id){
         $event = Event::find($event_id);
         $attends = Attend::getAttendUsersAll($event->id);
-        return view('manage/update')
-        ->with([
-            'event' => $event,
-            'attends' => $attends
-        ]);
+        return view('manage/update')->with(['event' => $event, 'attends' => $attends]);
     }
     public function update_post(Request $request){
         // 入力チェック
@@ -84,11 +71,7 @@ class ManageController extends Controller
         $event->start = $request->start;
         $event->end = $request->end;
         $event->save();
-        // return redirect('manage/index')
-        return redirect()->back()
-        ->with([
-            'success' => 'イベントの編集が完了しました。'
-        ]);
+        return redirect()->back()->with(['success' => 'イベントの編集が完了しました。']);
     }
     public function stop($event_id){
         $event = Event::find($event_id);
@@ -99,9 +82,6 @@ class ManageController extends Controller
     }
     public function member_list(){
         $users = \DB::select('select * from users order by id desc');
-        return view('manage/member_list')
-        ->with([
-            'users' => $users
-        ]);
+        return view('manage/member_list')->with(['users' => $users]);
     }
 }
