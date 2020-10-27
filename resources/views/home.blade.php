@@ -6,13 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">マイページ<a class="btn btn-sm btn-outline-secondary float-right" href="{{ url('home/edit') }}">プロフィール編集</a></div>
-                @if (session('success_quit'))
-                    <div class="container mt-2">
-                    <div class="alert alert-danger">
-                        {{session('success_quit')}}
-                    </div>
-                    </div>
-                @endif
+                @include('layouts.alert')
                 <div class="card-body">
                     ・参加イベント一覧
                     @forelse($my_events as $my_event)
@@ -21,7 +15,7 @@
                         @if($my_event->quit_flg == 0)
                             {{-- 未欠席 --}}
                             @if( strtotime($my_event->start) > strtotime("now") )
-                                {{-- 開催前 欠席可能 --}}
+                                {{-- 開催前 欠席ボタンが押せる --}}
                                 <form method="POST" action="{{ url('event/quit') }}" class="d-inline-block" onSubmit="return dialog('イベントを欠席しますか？')">
                                     @csrf
                                     <input type="submit" class="btn btn-sm btn-primary" value="欠席する">

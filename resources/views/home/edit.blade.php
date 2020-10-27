@@ -8,7 +8,7 @@
                 <div class="card-header">プロフィール設定<a class="btn btn-sm btn-outline-secondary float-right" href="{{ url('home/edit_password') }}">パスワード変更</a></div>
                 @include('layouts.alert')
                 <div class="card-body">
-                    <form method="POST" action="{{ action('HomeController@edit_post') }}" onSubmit="return dialog('プロフィールを更新しますか？')">
+                    <form method="POST" action="{{ action('UserController@edit_post') }}" onSubmit="return dialog('プロフィールを更新しますか？')">
                         @csrf
                         <div class="form-group row">
                             <label for="nickname" class="col-md-3 col-form-label">ニックネーム</label>

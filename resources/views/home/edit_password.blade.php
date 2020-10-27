@@ -8,7 +8,7 @@
                 <div class="card-header">パスワード変更</div>
                 @include('layouts.alert')
                 <div class="card-body">
-                    <form method="POST" action="{{ url('/personalupdatepassword') }}">
+                    <form method="POST" action="{{ action('UserController@edit_password_post') }}" onSubmit="return dialog('パスワードを変更しますか？')">
                         @csrf
 
                         <div class="form-group row">

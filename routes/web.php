@@ -17,17 +17,24 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// ホーム画面
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home/edit', 'HomeController@edit_get');
-Route::post('/home/edit', 'HomeController@edit_post');
-Route::get('/home/edit_password', 'HomeController@edit_password_get');
-Route::post('/home/edit_password', 'HomeController@edit_password_post');
 
+// ユーザ情報
+Route::get('/home/edit', 'UserController@edit_get');
+Route::post('/home/edit', 'UserController@edit_post');
+Route::get('/home/edit_password', 'UserController@edit_password_get');
+Route::post('/home/edit_password', 'UserController@edit_password_post');
+
+// イベント表示
 Route::get('/event/list/{category}', 'EventController@list');
 Route::get('/event/detail/{event_id}', 'EventController@detail')->name('event/detail');
-Route::post('/event/end', 'HomeController@attend');
-Route::post('/event/quit', 'HomeController@quit');
 
+// イベント参加・欠席
+Route::post('/event/end', 'AttendController@attend');
+Route::post('/event/quit', 'AttendController@quit');
+
+// 管理者機能
 Route::get('/manage/index', 'ManageController@index');
 Route::get('/manage/insert', 'ManageController@insert_get');
 Route::post('/manage/insert', 'ManageController@insert_post');

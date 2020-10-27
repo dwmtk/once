@@ -17,7 +17,7 @@ class ManageController extends Controller
         $this->middleware(function ($request, $next) {
 
             if(Auth::user()->user_type != 2){
-                // 管理者ユーザ以外の場合
+                // 管理者ユーザ以外の場合はホーム画面にリダイレクト
                 return redirect('home');
             }
 
