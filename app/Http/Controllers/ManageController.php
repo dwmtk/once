@@ -29,6 +29,12 @@ class ManageController extends Controller
         return view('manage/insert');
     }
     public function insert_post(Request $request){
+        // 画像を保存
+        // $file_name = $request->file('image1')->getClientOriginalName();
+        // $file_pass = 'public/event/'.'1';
+        // $request->file('image1')->storeAs($file_pass, $file_name);
+        // dd($file_name);
+
         // 入力チェック
         $this -> Validate($request, [
             'name' => ['required', 'string', 'max:50'],
@@ -45,6 +51,13 @@ class ManageController extends Controller
         $event->capacity = $request->capacity;
         $event->start = $request->start;
         $event->end = $request->end;
+        $event->save();
+
+        // 画像を保存
+        $file_name = $request->file('image1')->getClientOriginalName();
+        $file_pass = 'public/event/'.$event->id;
+        $request->file('image1')->storeAs($file_pass, $file_name);
+        $event->image = $file_name;
         $event->save();
         return redirect('manage/index')->with(['success' => 'イベントの新規作成を行いました。']);
     }
@@ -66,7 +79,7 @@ class ManageController extends Controller
         $event = Event::find($request->event_id);
         $event->name = $request->name;
         $event->category = $request->category;
-        $event->content = htmlspecialchars($request->content);
+        $event->content = $request->content;
         $event->capacity = $request->capacity;
         $event->start = $request->start;
         $event->end = $request->end;

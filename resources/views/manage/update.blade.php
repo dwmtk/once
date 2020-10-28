@@ -63,7 +63,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="content" class="col-md-3 col-form-label">内容</label>
+                        <label for="content" class="col-md-5 col-form-label">内容（HTMLコードの記述も可能）</label>
                         <textarea id="content" class="col-md-12 form-control @error('content') is-invalid @enderror" name="content" style="height:600px;" required>{{ html_entity_decode($event->content) }}</textarea>
                     </div>
                     <div class="form-group">

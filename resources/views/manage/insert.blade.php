@@ -8,7 +8,7 @@
                 <div class="card-header">新規作成</div>
                 @include('layouts.alert')
                 <div class="card-body">
-                    <form method="POST" action="{{ url('manage/insert') }}" class="col-md-12" onSubmit="return dialog('イベントを新規作成しますか？')">
+                    <form method="POST" action="{{ url('manage/insert') }}" class="col-md-12" enctype="multipart/form-data" onSubmit="return dialog('イベントを新規作成しますか？')">
                     @csrf
                         <div class="form-group">
                             <label for="name" class="col-md-3 col-form-label">イベント名</label>
@@ -36,6 +36,19 @@
                             <input id="start" class="col-md-3 form-control @error('start') is-invalid @enderror" type="text" name="start" value="{{ old('start') }}" required>
                             　～　
                             <input id="end" class="col-md-3 form-control @error('end') is-invalid @enderror" type="text" name="end" value="{{ old('end') }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image1" class="col-md-3 col-form-label">画像1</label>
+                            <input type="file" id="image1" name="image1" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="image2" class="col-md-3 col-form-label">画像2</label>
+                            <input type="file" id="image2" name="image2" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="image3" class="col-md-3 col-form-label">画像3</label>
+                            <input type="file" id="image3" name="image3" class="form-control">
                         </div>
                         <div class="form-group text-center">
                             <input type="submit" class="btn btn-primary " value="イベントを新規作成">
