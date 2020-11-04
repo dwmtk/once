@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Event;
 use App\Attend;
+use App\Event;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\SendRegisterMail;
 

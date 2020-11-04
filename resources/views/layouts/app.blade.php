@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <!-- 確認ダイアログ -->
     <script>
         function dialog(message){
@@ -31,7 +32,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <!-- <div id="app"> -->
+    <div>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -91,5 +93,15 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        $('.custom-file-input').on('change',function(){
+        $(this).next('.custom-file-label').html($(this)[0].files[0].name);
+        })
+        //ファイルの取消
+        $('.reset').click(function(){
+            $(this).parent().prev().children('.custom-file-label').html('ファイル選択...');
+            $('.custom-file-input').val('');
+        })
+    </script>
 </body>
 </html>

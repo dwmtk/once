@@ -12,9 +12,11 @@
                 <h1>{{ $event->name }}</h1>
                 <div>開催日：{{ date('Y/m/d H:i', strtotime($event->start)) }} ~ {{ date('Y/m/d H:i', strtotime($event->end)) }}</div>
                 <div>定員：{{ $event->capacity }}人／参加：{{ $event->number }}人</div>
-                <div class="text-center" style="width:100%;">
-                    <img src="/storage/event/{{ $event->id }}/{{ $event->image }}" style="width:100%;">
-                </div>
+                @if(!empty($event->image))
+                    <div class="text-center" style="width:100%;">
+                        <img src="/storage/event/{{ $event->id }}/{{ $event->image }}" style="width:100%;">
+                    </div>
+                @endif
                 <div>イベント内容：</div>
                 <p>{!! nl2br($event->content) !!}</p>
                 @if( $event->capacity > $event->number )

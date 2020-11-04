@@ -17,7 +17,10 @@ class EventController extends Controller
     public function __construct()
     {
     }
-
+    public function top(){
+        $events = Event::all();
+        return view('welcome')->with(['events' => $events]);
+    }
     public function list($category){
         // イベント一覧
         $event_list = Event::where('category', $category)->get();

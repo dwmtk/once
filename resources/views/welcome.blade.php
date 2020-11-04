@@ -21,7 +21,7 @@
             }
 
             .full-height {
-                height: 100vh;
+                height: 50px;
             }
 
             .flex-center {
@@ -61,7 +61,23 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            @media(max-width: 768px){
+                .fc-toolbar{
+                    font-size: 10px;
+                }
+            }
         </style>
+        
+        <link href='/css/fullcalendar/core/main.css' rel='stylesheet' />
+        <link href='/css/fullcalendar/daygrid/main.css' rel='stylesheet' />
+        <link href='/css/fullcalendar/timegrid/main.css' rel='stylesheet' />
+        <link href='/css/fullcalendar/list/main.css' rel='stylesheet' />
+        <script src='/js/fullcalendar/core/main.js'></script>
+        <script src='/js/fullcalendar/interaction/main.js'></script>
+        <script src='/js/fullcalendar/daygrid/main.js'></script>
+        <script src='/js/fullcalendar/timegrid/main.js'></script>
+        <script src='/js/fullcalendar/list/main.js'></script>
+        <script src="/js/fullcalendar/core/locales-all.js"></script>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -78,14 +94,63 @@
                     @endauth
                 </div>
             @endif
-
-            <div class="content">
+        </div>
+        <div>
+            <div class="content" style="margin: 50px 0;">
                 <a href="{{ action('EventController@list', 'manabu') }}">マナブ</a>
                 <a href="{{ action('EventController@list', 'asobu') }}">アソブ</a>
                 <a href="{{ action('EventController@list', 'tsukuru') }}">ツクル</a>
                 <a href="{{ action('EventController@list', 'deau') }}">デアウ</a>
                 <a href="{{ action('EventController@list', 'intention') }}">intention</a>
             </div>
+            <div style="margin: 0 10px;">
+                <div id="calendar"></div>
+            </div>
         </div>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                },
+                timeZone: 'Asia/Tokyo',
+                locale: 'ja',
+                defaultDate: '{{ date("Y-m-d") }}',
+                navLinks: true, // can click day/week names to navigate views
+                businessHours: false, // display business hours
+                editable: true,
+                events: [  
+                @foreach($events as $event)
+                {
+                    id: '{{ $event->id }}',
+                    title: '{{$event->name}}',
+                    start: '{{ date("c",strtotime($event->start)) }}',
+                    end: '{{ date("c",strtotime($event->end)) }}',
+                    color: @if($event->category == 'manabu')'#ff0000'
+                    @elseif($event->category == 'asobu')'#ff0000'
+                    @elseif($event->category == 'tsukuru')'#008000'
+                    @elseif($event->category == 'deau')'#0000ff'
+                    @elseif($event->category == 'intention')'#808080'
+                    @endif,
+                    eventClick: function (info) {
+                    } 
+                },
+                @endforeach
+                ],
+                eventRender: function(info) {
+                    info.el.onclick=function(){
+                        var url = '{{ url("event/detail") }}/' + info.event.id;
+                        window.location.href = url;
+                    }
+                },
+                eventTimeFormat: { hour: 'numeric', minute: '2-digit' }
+            });
+            calendar.render();
+        });
+        </script>
     </body>
 </html>

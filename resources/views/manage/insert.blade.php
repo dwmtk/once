@@ -37,18 +37,18 @@
                             　～　
                             <input id="end" class="col-md-3 form-control @error('end') is-invalid @enderror" type="text" name="end" value="{{ old('end') }}" required>
                         </div>
-
+                        
                         <div class="form-group">
-                            <label for="image1" class="col-md-3 col-form-label">画像1</label>
-                            <input type="file" id="image1" name="image1" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="image2" class="col-md-3 col-form-label">画像2</label>
-                            <input type="file" id="image2" name="image2" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="image3" class="col-md-3 col-form-label">画像3</label>
-                            <input type="file" id="image3" name="image3" class="form-control">
+                            <label for="image1" class="col-md-3 col-form-label">画像 ※1枚のみ</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" id="image1" name="image1" class="custom-file-input">
+                                    <label class="custom-file-label" for="image1" data-browse="参照">ファイルを選択</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary input-group-text reset">取消</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group text-center">
                             <input type="submit" class="btn btn-primary " value="イベントを新規作成">
@@ -59,4 +59,5 @@
         </div>
     </div>
 </div>
+
 @endsection

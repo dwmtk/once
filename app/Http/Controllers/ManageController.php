@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Event;
 use App\Attend;
 use Illuminate\Support\Facades\Auth;
+use Spatie\GoogleCalendar\Event as GoogleEvent;
 
 class ManageController extends Controller
 {
@@ -53,12 +54,16 @@ class ManageController extends Controller
         $event->end = $request->end;
         $event->save();
 
-        // 画像を保存
-        $file_name = $request->file('image1')->getClientOriginalName();
-        $file_pass = 'public/event/'.$event->id;
-        $request->file('image1')->storeAs($file_pass, $file_name);
-        $event->image = $file_name;
-        $event->save();
+        if($request->image1){
+            // 画像を保存
+            $file_name = $request->file('image1')->getClientOriginalName();
+            $file_pass = 'public/event/'.$event->id;
+            $request->file('image1')->storeAs($file_pass, $file_name);
+            $event->image = $file_name;
+            $event->save();
+        }
+        // Googleカレンダーに登録
+        
         return redirect('manage/index')->with(['success' => 'イベントの新規作成を行いました。']);
     }
     public function update_get($event_id){
