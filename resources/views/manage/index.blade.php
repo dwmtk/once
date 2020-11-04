@@ -21,7 +21,7 @@
                             @endif
                             --}}
 
-                            @if( intval($event->start) < intval(date('YmdHi')) )
+                            @if( intval($event->end) < intval(date('YmdHi')) )
                                 <div class="float-right badge badge-secondary">開催済み</div>
                             @endif
                             

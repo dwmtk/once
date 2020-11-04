@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">利用者一覧</div>
+                <div class="card-header">利用者一覧<a class="btn btn-sm btn-outline-secondary float-right" href="{{ url('manage/index') }}">戻る</a></div>
                 @include('layouts.alert')
                 <div class="card-body">
                     <ul class="list-group">

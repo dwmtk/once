@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Event;
 use App\Attend;
 use Illuminate\Support\Facades\Auth;
-use Spatie\GoogleCalendar\Event as GoogleEvent;
 
 class ManageController extends Controller
 {
@@ -30,28 +29,32 @@ class ManageController extends Controller
         return view('manage/insert');
     }
     public function insert_post(Request $request){
-        // 画像を保存
-        // $file_name = $request->file('image1')->getClientOriginalName();
-        // $file_pass = 'public/event/'.'1';
-        // $request->file('image1')->storeAs($file_pass, $file_name);
-        // dd($file_name);
-
         // 入力チェック
         $this -> Validate($request, [
             'name' => ['required', 'string', 'max:50'],
             'category' => ['required', 'string', 'min:2'],
             'content' => ['required', 'string'],
             'capacity' => ['required', 'integer', 'max:9999'],
-            'start' => ['required','string', 'min:12', 'max:12'],
-            'end' => ['required','string', 'min:12', 'max:12'],
+            'start_y' => ['required','string', 'min:4', 'max:4'],
+            'start_m' => ['required','string', 'min:2', 'max:2'],
+            'start_d' => ['required','string', 'min:2', 'max:2'],
+            'start_hour' => ['required','string', 'min:2', 'max:2'],
+            'start_min' => ['required','string', 'min:2', 'max:2'],
+            'end_y' => ['required','string', 'min:4', 'max:4'],
+            'end_m' => ['required','string', 'min:2', 'max:2'],
+            'end_d' => ['required','string', 'min:2', 'max:2'],
+            'end_hour' => ['required','string', 'min:2', 'max:2'],
+            'end_min' => ['required','string', 'min:2', 'max:2'],
         ]);
+        $start = $request->start_y.$request->start_m.$request->start_d.$request->start_hour.$request->start_min;
+        $end = $request->end_y.$request->end_m.$request->end_d.$request->end_hour.$request->end_min;
         $event = new Event;
         $event->name = $request->name;
         $event->category = $request->category;
         $event->content = $request->content;
         $event->capacity = $request->capacity;
-        $event->start = $request->start;
-        $event->end = $request->end;
+        $event->start = $start;
+        $event->end = $end;
         $event->save();
 
         if($request->image1){
@@ -62,8 +65,6 @@ class ManageController extends Controller
             $event->image = $file_name;
             $event->save();
         }
-        // Googleカレンダーに登録
-        
         return redirect('manage/index')->with(['success' => 'イベントの新規作成を行いました。']);
     }
     public function update_get($event_id){
@@ -78,16 +79,33 @@ class ManageController extends Controller
             'category' => ['required', 'string', 'min:2'],
             'content' => ['required', 'string'],
             'capacity' => ['required', 'integer', 'max:9999'],
-            'start' => ['required','string', 'min:12', 'max:12'],
-            'end' => ['required','string', 'min:12', 'max:12'],
+            'start_y' => ['required','string', 'min:4', 'max:4'],
+            'start_m' => ['required','string', 'min:2', 'max:2'],
+            'start_d' => ['required','string', 'min:2', 'max:2'],
+            'start_hour' => ['required','string', 'min:2', 'max:2'],
+            'start_min' => ['required','string', 'min:2', 'max:2'],
+            'end_y' => ['required','string', 'min:4', 'max:4'],
+            'end_m' => ['required','string', 'min:2', 'max:2'],
+            'end_d' => ['required','string', 'min:2', 'max:2'],
+            'end_hour' => ['required','string', 'min:2', 'max:2'],
+            'end_min' => ['required','string', 'min:2', 'max:2'],
         ]);
+        $start = $request->start_y.$request->start_m.$request->start_d.$request->start_hour.$request->start_min;
+        $end = $request->end_y.$request->end_m.$request->end_d.$request->end_hour.$request->end_min;
         $event = Event::find($request->event_id);
         $event->name = $request->name;
         $event->category = $request->category;
         $event->content = $request->content;
         $event->capacity = $request->capacity;
-        $event->start = $request->start;
-        $event->end = $request->end;
+        $event->start = $start;
+        $event->end = $end;
+        if($request->image1){
+            // 画像を保存
+            $file_name = $request->file('image1')->getClientOriginalName();
+            $file_pass = 'public/event/'.$event->id;
+            $request->file('image1')->storeAs($file_pass, $file_name);
+            $event->image = $file_name;
+        }
         $event->save();
         return redirect()->back()->with(['success' => 'イベントの編集が完了しました。']);
     }

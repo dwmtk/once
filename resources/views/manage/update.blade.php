@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">イベント詳細・編集画面　<a href="{{ action('ManageController@stop', $event->id) }}" class="btn btn-warning btn-sm disabled">募集を打ち切る※未実装</a></div>
+                <div class="card-header">イベント詳細・編集画面　<a class="btn btn-sm btn-outline-secondary float-right" href="{{ url('manage/index') }}">戻る</a><a href="{{ action('ManageController@stop', $event->id) }}" class="btn btn-warning btn-sm disabled">募集を打ち切る※未実装</a></div>
                 @include('layouts.alert')
                 <div class="card-body">
                 <h5>参加者一覧（定員：{{ $event->capacity }}人／参加：{{ $event->number }}人）</h5>
@@ -43,7 +43,7 @@
                 </ul>
 
                 <h5 class="mt-4">イベント詳細・編集　<a class="btn btn-sm btn-outline-secondary" href="{{ action('EventController@detail', $event->id) }}" target="_blank">詳細画面</a></h5>
-                <form method="POST" action="{{ url('manage/update') }}" class="col-md-12" onSubmit="return dialog('イベントを編集してよろしいですか？')">
+                <form method="POST" action="{{ url('manage/update') }}" class="col-md-12" enctype="multipart/form-data" onSubmit="return dialog('イベントを編集してよろしいですか？')">
                     @csrf
                     <div class="form-group">
                         <label for="name" class="col-md-3 col-form-label">イベント名</label>
@@ -71,10 +71,43 @@
                         <input id="capacity" class="col-md-3 form-control @error('capacity') is-invalid @enderror" type="text" name="capacity" value="{{ $event->capacity }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="start" class="col-md-3 col-form-label">開催期間</label>
-                        <input id="start" class="col-md-3 form-control @error('start') is-invalid @enderror" type="text" name="start" value="{{ $event->start }}" required>
+                        <label class="col-md-3 col-form-label">開催期間</label>
+                        <div class="form-inline">
+                            <input id="start_y" class="col-3 form-control form-control-sm @error('start_y') is-invalid @enderror" type="text" name="start_y" value="{{ substr($event->start, 0, 4) }}" required><label for="start_y" class="col-form-label mx-1">年</label>
+                            <input id="start_m" class="col-2 form-control form-control-sm @error('start_m') is-invalid @enderror" type="text" name="start_m" value="{{ substr($event->start, 4, 2) }}" required><label for="start_m" class="col-form-label mx-1">月</label>
+                            <input id="start_d" class="col-2 form-control form-control-sm @error('start_d') is-invalid @enderror" type="text" name="start_d" value="{{ substr($event->start, 6, 2) }}" required><label for="start_d" class="col-form-label mx-1">日</label>
+                        </div>
+                        <div class="form-inline">
+                            <input id="start_hour" class="col-2 form-control form-control-sm @error('start_hour') is-invalid @enderror" type="text" name="start_hour" value="{{ substr($event->start, 8, 2) }}" required><label for="start_hour" class="col-form-label mx-1">時</label>
+                            <input id="start_min" class="col-2 form-control form-control-sm @error('start_min') is-invalid @enderror" type="text" name="start_min" value="{{ substr($event->start, 10, 2) }}" required><label for="start_min" class="col-form-label mx-1">分</label>
+                        </div>
                         　～　
-                        <input id="end" class="col-md-3 form-control @error('end') is-invalid @enderror" type="text" name="end" value="{{ $event->end }}" required>
+                        <div class="form-inline">
+                            <input id="end_y" class="col-3 form-control form-control-sm @error('end_y') is-invalid @enderror" type="text" name="end_y" value="{{ substr($event->end, 0, 4) }}" required><label for="end_y" class="col-form-label mx-1">年</label>
+                            <input id="end_m" class="col-2 form-control form-control-sm @error('end_m') is-invalid @enderror" type="text" name="end_m" value="{{ substr($event->end, 4, 2) }}" required><label for="end_m" class="col-form-label mx-1">月</label>
+                            <input id="end_d" class="col-2 form-control form-control-sm @error('end_d') is-invalid @enderror" type="text" name="end_d" value="{{ substr($event->end, 6, 2) }}" required><label for="end_d" class="col-form-label mx-1">日</label>
+                        </div>
+                        <div class="form-inline">
+                            <input id="end_hour" class="col-2 form-control form-control-sm @error('end_hour') is-invalid @enderror" type="text" name="end_hour" value="{{ substr($event->end, 8, 2) }}" required><label for="end_hour" class="col-form-label mx-1">時</label>
+                            <input id="end_min" class="col-2 form-control form-control-sm @error('end_min') is-invalid @enderror" type="text" name="end_min" value="{{ substr($event->end, 10, 2) }}" required><label for="end_min" class="col-form-label mx-1">分</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="image1" class="col-md-3 col-form-label">画像 ※1枚のみ</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" id="image1" name="image1" class="custom-file-input">
+                                <label class="custom-file-label" for="image1" data-browse="参照">ファイルを選択</label>
+                            </div>
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary input-group-text reset">取消</button>
+                            </div>
+                        </div>
+                        @if(!empty($event->image))
+                            <div class="text-center mt-2" style="width:100%;">
+                                <img src="/storage/event/{{ $event->id }}/{{ $event->image }}" style="width:100%;">
+                            </div>
+                        @endif
                     </div>
                     <div class="form-group text-center">
                         <input type="submit" class="btn btn-primary " value="イベントを編集する">

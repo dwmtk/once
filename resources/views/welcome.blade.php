@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>イベントサイトonce</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -61,8 +61,18 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            #calendar{
+                max-width: 800px;
+                margin: 0 auto;
+            }
             @media(max-width: 768px){
+                #calendar{
+                    margin: 0 10px;
+                }
                 .fc-toolbar{
+                    font-size: 10px;
+                }
+                .fc-widget-header{
                     font-size: 10px;
                 }
             }
@@ -103,54 +113,52 @@
                 <a href="{{ action('EventController@list', 'deau') }}">デアウ</a>
                 <a href="{{ action('EventController@list', 'intention') }}">intention</a>
             </div>
-            <div style="margin: 0 10px;">
-                <div id="calendar"></div>
-            </div>
+            <div id="calendar"></div>
         </div>
         <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-                },
-                timeZone: 'Asia/Tokyo',
-                locale: 'ja',
-                defaultDate: '{{ date("Y-m-d") }}',
-                navLinks: true, // can click day/week names to navigate views
-                businessHours: false, // display business hours
-                editable: true,
-                events: [  
-                @foreach($events as $event)
-                {
-                    id: '{{ $event->id }}',
-                    title: '{{$event->name}}',
-                    start: '{{ date("c",strtotime($event->start)) }}',
-                    end: '{{ date("c",strtotime($event->end)) }}',
-                    color: @if($event->category == 'manabu')'#ff0000'
-                    @elseif($event->category == 'asobu')'#ff0000'
-                    @elseif($event->category == 'tsukuru')'#008000'
-                    @elseif($event->category == 'deau')'#0000ff'
-                    @elseif($event->category == 'intention')'#808080'
-                    @endif,
-                    eventClick: function (info) {
-                    } 
-                },
-                @endforeach
-                ],
-                eventRender: function(info) {
-                    info.el.onclick=function(){
-                        var url = '{{ url("event/detail") }}/' + info.event.id;
-                        window.location.href = url;
-                    }
-                },
-                eventTimeFormat: { hour: 'numeric', minute: '2-digit' }
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                    },
+                    timeZone: 'Asia/Tokyo',
+                    locale: 'ja',
+                    defaultDate: '{{ date("Y-m-d") }}',
+                    navLinks: true, // can click day/week names to navigate views
+                    businessHours: false, // display business hours
+                    editable: true,
+                    events: [  
+                    @foreach($events as $event)
+                    {
+                        id: '{{ $event->id }}',
+                        title: '{{$event->name}}',
+                        start: '{{ date("c",strtotime($event->start)) }}',
+                        end: '{{ date("c",strtotime($event->end)) }}',
+                        color: @if($event->category == 'manabu')'#ff0000'
+                        @elseif($event->category == 'asobu')'#ff0000'
+                        @elseif($event->category == 'tsukuru')'#008000'
+                        @elseif($event->category == 'deau')'#0000ff'
+                        @elseif($event->category == 'intention')'#808080'
+                        @endif,
+                        eventClick: function (info) {
+                        } 
+                    },
+                    @endforeach
+                    ],
+                    eventRender: function(info) {
+                        info.el.onclick=function(){
+                            var url = '{{ url("event/detail") }}/' + info.event.id;
+                            window.location.href = url;
+                        }
+                    },
+                    eventTimeFormat: { hour: 'numeric', minute: '2-digit' }
+                });
+                calendar.render();
             });
-            calendar.render();
-        });
         </script>
     </body>
 </html>

@@ -10,6 +10,19 @@
                 <div class="card-body">
 
                 <h1>{{ $event->name }}</h1>
+                <div>カテゴリ：
+                    @if( $event->category == 'manabu' )
+                    マナブ
+                    @elseif( $event->category == 'asobu' )
+                    アソブ
+                    @elseif( $event->category == 'tsukuru' )
+                    ツクル
+                    @elseif( $event->category == 'deau' )
+                    デアウ
+                    @elseif( $event->category == 'intention' )
+                    intention
+                    @endif
+                </div>
                 <div>開催日：{{ date('Y/m/d H:i', strtotime($event->start)) }} ~ {{ date('Y/m/d H:i', strtotime($event->end)) }}</div>
                 <div>定員：{{ $event->capacity }}人／参加：{{ $event->number }}人</div>
                 @if(!empty($event->image))
@@ -18,7 +31,9 @@
                     </div>
                 @endif
                 <div>イベント内容：</div>
+                <hr>
                 <p>{!! nl2br($event->content) !!}</p>
+                <hr>
                 @if( $event->capacity > $event->number )
                     @if( strtotime($event->start) > strtotime("now") )
                         @if(Auth::check())
