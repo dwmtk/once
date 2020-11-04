@@ -5,7 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">プロフィール設定<a class="btn btn-sm btn-outline-secondary float-right" href="{{ url('home/edit_password') }}">パスワード変更</a></div>
+                <div class="card-header">プロフィール設定
+                    <span class="float-right">
+                        <a class="btn btn-sm btn-outline-secondary" href="{{ url('/home') }}">マイページ</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="{{ url('home/edit_password') }}">パスワード変更</a>
+                    </span>
+                </div>
                 @include('layouts.alert')
                 <div class="card-body">
                     <form method="POST" action="{{ action('UserController@edit_post') }}" onSubmit="return dialog('プロフィールを更新しますか？')">

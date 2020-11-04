@@ -5,7 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">パスワード変更</div>
+                <div class="card-header">パスワード変更
+                    <span class="float-right">
+                        <a class="btn btn-sm btn-outline-secondary" href="{{ url('/home') }}">マイページ</a>
+                    </span>
+                </div>
                 @include('layouts.alert')
                 <div class="card-body">
                     <form method="POST" action="{{ action('UserController@edit_password_post') }}" onSubmit="return dialog('パスワードを変更しますか？')">

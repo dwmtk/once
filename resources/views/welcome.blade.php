@@ -115,6 +115,14 @@
             </div>
             <div id="calendar"></div>
         </div>
+
+        <footer>
+            <ul>
+                <li><a href="{{ url('/terms_of_service') }}">利用規約</a></li>
+                <li><a href="{{ url('/privacy_policy') }}">プライバシーポリシー</a></li>
+            </ul>
+        </footer>
+
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var calendarEl = document.getElementById('calendar');

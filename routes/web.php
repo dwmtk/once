@@ -12,6 +12,12 @@
 */
 
 Route::get('/', 'EventController@top');
+Route::get('/privacy_policy', function(){
+    return view('/privacy_policy');
+});
+Route::get('/terms_of_service', function(){
+    return view('/terms_of_service');
+});
 
 Auth::routes();
 
