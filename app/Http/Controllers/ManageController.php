@@ -110,11 +110,11 @@ class ManageController extends Controller
         return redirect()->back()->with(['success' => 'イベントの編集が完了しました。']);
     }
     public function stop($event_id){
+        //イベント打ち切り
         $event = Event::find($event_id);
         $event->stop_flg = '1';
         $event->save();
-        dd($event);
-        return view('manage/index');
+        return redirect()->back()->with(['warning' => 'イベントを打ち切りました。']);
     }
     public function member_list(){
         $users = \DB::select('select * from users order by id desc');
