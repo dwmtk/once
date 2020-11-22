@@ -74,7 +74,7 @@ class RegisterController extends Controller
     {
         // 会員登録完了メール送信
         $to = [['email' => $data['email'], 'name' => $data['nickname'].'様']];
-        Mail::to($to)->send(new SendRegisterMail(Auth::user()));
+        Mail::to($to)->send(new SendRegisterMail($data));
 
         return User::create([
             'name' => $data['name'],
