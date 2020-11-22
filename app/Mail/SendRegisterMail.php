@@ -16,9 +16,9 @@ class SendRegisterMail extends Mailable
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($data)
     {
-        $this->user = $user;
+        $this->data = $data;
     }
 
     /**
@@ -32,7 +32,7 @@ class SendRegisterMail extends Mailable
                     ->from('once.intention@gmail.com','once')
                     ->subject('【once】会員登録が完了しました。')
                     ->with([
-                        'user' => $this->user
+                        'data' => $this->data
                         ]);
     }
 }
