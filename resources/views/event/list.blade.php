@@ -7,17 +7,17 @@
             <div class="card">
                 <div class="card-header">
                     イベント一覧 [
-                    @if( $event_list[0]->category == 'manabu' )
+                    @if( $category == 'manabu' )
                     マナブ
-                    @elseif( $event_list[0]->category == 'asobu' )
+                    @elseif( $category == 'asobu' )
                     アソブ
-                    @elseif( $event_list[0]->category == 'tsukuru' )
+                    @elseif( $category == 'tsukuru' )
                     ツクル
-                    @elseif( $event_list[0]->category == 'deau' )
+                    @elseif( $category == 'deau' )
                     デアウ
-                    @elseif( $event_list[0]->category == 'intention' )
+                    @elseif( $category == 'intention' )
                     intention
-                    @endif    
+                    @endif
                     ]
                 </div>
                 @include('layouts.alert')
