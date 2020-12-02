@@ -77,7 +77,7 @@
                 }
             }
         </style>
-        
+
         <link href='/css/fullcalendar/core/main.css' rel='stylesheet' />
         <link href='/css/fullcalendar/daygrid/main.css' rel='stylesheet' />
         <link href='/css/fullcalendar/timegrid/main.css' rel='stylesheet' />
@@ -113,6 +113,7 @@
                 <a href="{{ action('EventController@list', 'deau') }}">デアウ</a>
                 <a href="{{ action('EventController@list', 'intention') }}">intention</a>
             </div>
+            test
             <div id="calendar"></div>
         </div>
 
@@ -139,7 +140,7 @@
                     navLinks: true, // can click day/week names to navigate views
                     businessHours: false, // display business hours
                     editable: true,
-                    events: [  
+                    events: [
                     @foreach($events as $event)
                     {
                         id: '{{ $event->id }}',
@@ -153,7 +154,7 @@
                         @elseif($event->category == 'intention')'#808080'
                         @endif,
                         eventClick: function (info) {
-                        } 
+                        }
                     },
                     @endforeach
                     ],
