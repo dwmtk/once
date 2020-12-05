@@ -24,7 +24,9 @@
                     @endif
                 </div>
                 <div>開催日：{{ date('Y/m/d H:i', strtotime($event->start)) }} ~ {{ date('Y/m/d H:i', strtotime($event->end)) }}</div>
+                <div>開催場所：{{ $event->place }}</div>
                 <div>定員：{{ $event->capacity }}人／参加：{{ $event->number }}人</div>
+                <div>参加費：{{ number_format($event->fee) }}円</div>
                 @if(!empty($event->image))
                     <div class="text-center" style="width:100%;">
                         <img src="/storage/event/{{ $event->id }}/{{ $event->image }}" style="width:100%;">

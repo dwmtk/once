@@ -46,11 +46,11 @@
                 <form method="POST" action="{{ url('manage/update') }}" class="col-md-12" enctype="multipart/form-data" onSubmit="return dialog('イベントを編集してよろしいですか？')">
                     @csrf
                     <div class="form-group">
-                        <label for="name" class="col-md-3 col-form-label">イベント名</label>
+                        <label for="name" class="col-md-3 col-form-label">イベント名<span class="badge badge-danger ml-1">必須</span></label>
                         <input id="name" type="text" class="col-md-12 form-control @error('name') is-invalid @enderror" name="name" value="{{ $event->name }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="category" class="col-md-3 col-form-label">カテゴリ</label>
+                        <label for="category" class="col-md-3 col-form-label">カテゴリ<span class="badge badge-danger ml-1">必須</span></label>
                         <select id="category" class="col-md-12 form-control @error('category') is-invalid @enderror" type="text" name="category" value="{{ $event->category }}" required>
                             <option value="" selected>選択してください</option>
                             @foreach (config('categorys') as $key => $category)
@@ -63,15 +63,29 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="content" class="col-md-5 col-form-label">内容（HTMLコードの記述も可能）</label>
+                        <label for="content" class="col-md-5 col-form-label">内容（HTMLコードの記述も可能）<span class="badge badge-danger ml-1">必須</span></label>
                         <textarea id="content" class="col-md-12 form-control @error('content') is-invalid @enderror" name="content" style="height:600px;" required>{{ html_entity_decode($event->content) }}</textarea>
                     </div>
                     <div class="form-group">
-                        <label for="capacity" class="col-md-3 col-form-label">定員</label>
-                        <input id="capacity" class="col-md-3 form-control @error('capacity') is-invalid @enderror" type="text" name="capacity" value="{{ $event->capacity }}" required>
+                        <label for="capacity" class="col-md-3 col-form-label">定員<span class="badge badge-danger ml-1">必須</span></label>
+                        <div class="form-inline">
+                            <input id="capacity" class="col-5 form-control @error('capacity') is-invalid @enderror" type="text" name="capacity" value="{{ $event->capacity }}" required>
+                            <label for="capacity" class="col-form-label mx-1">人</label>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 col-form-label">開催期間</label>
+                        <label for="fee" class="col-md-3 col-form-label">参加費<span class="badge badge-danger ml-1">必須</span></label>
+                        <div class="form-inline">
+                            <input id="fee" class="col-5 form-control @error('fee') is-invalid @enderror" type="text" name="fee" value="{{ $event->fee }}" required>
+                            <label for="fee" class="col-form-label mx-1">円</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="place" class="col-md-3 col-form-label">開催場所<span class="badge badge-danger ml-1">必須</span></label>
+                        <input id="place" class="col-md-3 form-control @error('place') is-invalid @enderror" type="text" name="place" value="{{ $event->place }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-form-label">開催期間<span class="badge badge-danger ml-1">必須</span></label>
                         <div class="form-inline">
                             <input id="start_y" class="col-3 form-control form-control-sm @error('start_y') is-invalid @enderror" type="text" name="start_y" value="{{ substr($event->start, 0, 4) }}" required><label for="start_y" class="col-form-label mx-1">年</label>
                             <input id="start_m" class="col-2 form-control form-control-sm @error('start_m') is-invalid @enderror" type="text" name="start_m" value="{{ substr($event->start, 4, 2) }}" required><label for="start_m" class="col-form-label mx-1">月</label>
@@ -93,7 +107,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="image1" class="col-md-3 col-form-label">画像 ※1枚のみ</label>
+                        <label for="image1" class="col-md-3 col-form-label">画像 ※1枚のみ<span class="badge badge-secondary ml-1">任意</span></label>
                         <div class="input-group">
                             <div class="custom-file">
                                 <input type="file" id="image1" name="image1" class="custom-file-input">

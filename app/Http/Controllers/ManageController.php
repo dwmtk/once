@@ -35,6 +35,8 @@ class ManageController extends Controller
             'category' => ['required', 'string', 'min:2'],
             'content' => ['required', 'string'],
             'capacity' => ['required', 'integer', 'max:9999'],
+            'fee' => ['required', 'integer'],
+            'place' => ['required', 'string', 'max:255'],
             'start_y' => ['required','string', 'min:4', 'max:4'],
             'start_m' => ['required','string', 'min:2', 'max:2'],
             'start_d' => ['required','string', 'min:2', 'max:2'],
@@ -46,13 +48,17 @@ class ManageController extends Controller
             'end_hour' => ['required','string', 'min:2', 'max:2'],
             'end_min' => ['required','string', 'min:2', 'max:2'],
         ]);
+        //日付を成型
         $start = $request->start_y.$request->start_m.$request->start_d.$request->start_hour.$request->start_min;
         $end = $request->end_y.$request->end_m.$request->end_d.$request->end_hour.$request->end_min;
+        //イベントを保存
         $event = new Event;
         $event->name = $request->name;
         $event->category = $request->category;
         $event->content = $request->content;
         $event->capacity = $request->capacity;
+        $event->fee = $request->fee;
+        $event->place = $request->place;
         $event->start = $start;
         $event->end = $end;
         $event->save();
@@ -79,6 +85,8 @@ class ManageController extends Controller
             'category' => ['required', 'string', 'min:2'],
             'content' => ['required', 'string'],
             'capacity' => ['required', 'integer', 'max:9999'],
+            'fee' => ['required', 'integer'],
+            'place' => ['required', 'string', 'max:255'],
             'start_y' => ['required','string', 'min:4', 'max:4'],
             'start_m' => ['required','string', 'min:2', 'max:2'],
             'start_d' => ['required','string', 'min:2', 'max:2'],
@@ -90,13 +98,17 @@ class ManageController extends Controller
             'end_hour' => ['required','string', 'min:2', 'max:2'],
             'end_min' => ['required','string', 'min:2', 'max:2'],
         ]);
+        //日付を保存
         $start = $request->start_y.$request->start_m.$request->start_d.$request->start_hour.$request->start_min;
         $end = $request->end_y.$request->end_m.$request->end_d.$request->end_hour.$request->end_min;
+        //イベントを保存
         $event = Event::find($request->event_id);
         $event->name = $request->name;
         $event->category = $request->category;
         $event->content = $request->content;
         $event->capacity = $request->capacity;
+        $event->fee = $request->fee;
+        $event->place = $request->place;
         $event->start = $start;
         $event->end = $end;
         if($request->image1){
