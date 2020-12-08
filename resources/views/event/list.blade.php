@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="listBlade">
+<div class="eventListBlade">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -22,45 +22,60 @@
                 </div>
                 <div class="category-image">
                     @if( $category == 'manabu' )
-                        <img src="/storage/event/1/manabu.jpeg" alt="マナブの画像">
+                        <img src="/storage/img/manabu.jpg" alt="マナブの画像">
                     @elseif( $category == 'asobu' )
-                        <img src="/storage/event/1/asobu.jpg" alt="アソブの画像">
+                        <img src="/storage/img/asobu.jpg" alt="アソブの画像">
                     @elseif( $category == 'tsukuru' )
-                        <img src="/storage/event/1/tsukuru.jpeg" alt="ツクルの画像">
+                        <img src="/storage/img/tsukuru.jpg" alt="ツクルの画像">
                     @elseif( $category == 'deau' )
-                        <img src="/storage/event/1/deau.jpeg" alt="デアウの画像">
+                        <img src="/storage/img/deau.jpg" alt="デアウの画像">
                     @elseif( $category == 'intention' )
-                        <img src="/storage/event/1/intention.jpeg" alt="インテンションの画像">
+                        <img src="/storage/img/intention.jpeg" alt="インテンションの画像">
                     @endif
                 </div>
                 @include('layouts.alert')
 
-                <div class="card">
-                    <div class="card-header">
-                    </div>
-                    <div class="card-body">
-                        @forelse($event_list as $event)
-                            <div><a href="{{ action('EventController@detail', $event->id ) }}">{{ $event->name }}</a></div>
-                        @empty
-                            <div>イベントが存在しません。</div>
-                        @endforelse
-                    </div>
-                </div>
-
-                <div class="card " style="max-width: 540px;">
-                    <div class="row no-gutters">
-                      <div class="col-4">
-                        <svg class="bd-placeholder-img" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image</text></svg>
-                      </div>
-                      <div class="col-8">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <div class="topic"><h3>イベント一覧</h3></div>
+                @forelse($event_list as $event)
+                    @if( strtotime($event->start) > strtotime("now") )
+                        <div class="card">
+                            <a href="{{ action('EventController@detail', $event->id ) }}" class="card-link">
+                                <div class="row no-gutters">
+                                    <div class="col-4 card-left">
+                                        <img src="/storage/event/{{ $event->id }}/{{ $event->image }}" class="card-img" alt="イベント{{ $event->name }}のイメージ画像">
+                                    </div>
+                                    <div class="col-8 card-right">
+                                        <div class="card-body">
+                                            <h4 class="card-title">{{ $event->name }}</h4>
+                                            <p class="card-text">{{ date('Y/m/d H:i', strtotime($event->start)) }} 開催！</p>
+                                            @if ( $event->capacity <= $event->number )
+                                                <p class="card-text">※満員です。</p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                      </div>
-                    </div>
-                  </div>
+                    @else
+                        <div class="card">
+                            <a href="{{ action('EventController@detail', $event->id ) }}" class="card-link">
+                                <div class="row no-gutters">
+                                    <div class="col-4 card-left">
+                                        <img src="/storage/event/{{ $event->id }}/{{ $event->image }}" class="card-img" alt="イベント{{ $event->name }}のイメージ画像">
+                                    </div>
+                                    <div class="col-8 card-right">
+                                        <div class="card-body">
+                                            <h4 class="card-title">{{ $event->name }}</h4>
+                                            <p class="card-text">開催済みのイベントです。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endif
+                @empty
+                    <div class="no-card">まだイベントがありません。<br>今後のイベントを楽しみにお待ちください！</div>
+                @endforelse
 
             </div>
         </div>

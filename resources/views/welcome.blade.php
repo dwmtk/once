@@ -10,162 +10,6 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-
-        <!-- Styles -->
-        <style>
-            body {
-                background-color: #ffffef;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-                padding: 0;
-                text-decoration: none;
-                list-style: none;
-            }
-
-            .container {
-                max-width: 768px;
-                margin: 0 auto;
-                text-align: center;
-                color: #522b14;
-
-            }
-
-            .category-image {
-                width: 100%;
-                height: 300px;
-            }
-
-            .category-image img {
-                width: 100%;
-                height: 100%;
-            }
-
-            #calendar {
-                max-width: 768px;
-                margin: 0 auto;
-            }
-
-            @media(max-width: 768px) {
-                .container {
-                    max-width: 768px;
-                    margin: 0 auto;
-                }
-
-                .topic {
-                    position: relative;
-                    margin: 0 0 30px 0;
-                    padding: 0 0 10px;
-                    font-size: 26px;
-                    font-weight: 700;
-                }
-
-                .topic::after {
-                    position: absolute;
-                    content: "";
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    width: 40px;
-                    margin: auto;
-                    border-bottom: 2px solid #eb5e0a;
-                }
-
-                .header {
-                    height: 50px;
-                    display: flex;
-                    justify-content: space-between;
-                    background: #eb5e0a;
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    z-index: 10;
-                }
-
-                .header-right {
-                    display: flex;
-                }
-
-                .header-link > a {
-                    line-height: 50px;
-                    color: #fff;
-                    text-decoration: none;
-                }
-
-                .header-right-link > a {
-                    display: block;
-                    margin-left: 20px;
-                }
-
-                .header-right-link > a:hover {
-                    opacity: .7;
-                }
-
-                .categories {
-                    padding-top: 100px;
-                }
-
-                .category:hover {
-                    opacity: .7;
-                    transition: 0.5s;
-                }
-
-                .category a:hover {
-                    text-decoration: none;
-                }
-
-                .category-image {
-                    width: 100%;
-                    height: 190px;
-                }
-
-                .category-image img {
-                    width: 100%;
-                    height: 100%;
-                    border-radius: 10px;
-                }
-
-                .category-index{
-                    font-size: 19px;
-                    font-weight: 500;
-                    color: #522b14;
-                }
-
-                .calendar {
-                    margin: 50px 0;
-                }
-
-                .fc-toolbar {
-                    font-size: 10px;
-                }
-
-                .fc-widget-header {
-                    font-size: 10px;
-                }
-
-                .footer {
-                    height: 80px;
-                    background: #eb5e0a;
-                }
-
-                .footer-link {
-                    padding-top: 10px;
-                    list-style: none;
-                }
-
-                .footer-link > a {
-                    text-decoration: none;
-                    color: #fff;
-                }
-
-                .footer-link > a:hover {
-                    opacity: .7;
-                }
-            }
-        </style>
-
         <link href='/css/fullcalendar/core/main.css' rel='stylesheet' />
         <link href='/css/fullcalendar/daygrid/main.css' rel='stylesheet' />
         <link href='/css/fullcalendar/timegrid/main.css' rel='stylesheet' />
@@ -178,7 +22,7 @@
         <script src="/js/fullcalendar/core/locales-all.js"></script>
     </head>
 
-        <body>
+        <body class="welcomeBlade">
             <header>
                 <div class="container header">
                     <div class="header-left">
@@ -204,31 +48,31 @@
                 <div class="row justify-content-center">
                     <div class="col-6 category">
                         <a href="{{ action('EventController@list', 'manabu') }}">
-                            <div class="category-image"><img src="/storage/event/1/manabu.jpeg" alt="マナブの画像"></div>
+                            <div class="category-image"><img src="/storage/img/manabu.jpg" alt="マナブの画像"></div>
                             <p class="category-index">マナブ</p>
                         </a>
                     </div>
                     <div class="col-6 category">
                         <a href="{{ action('EventController@list', 'asobu') }}">
-                            <div class="category-image"><img src="/storage/event/1/asobu.jpg" alt="アソブの画像"></div>
+                            <div class="category-image"><img src="/storage/img/asobu.jpg" alt="アソブの画像"></div>
                             <p class="category-index">アソブ</p>
                         </a>
                     </div>
                     <div class="col-6 category">
                         <a href="{{ action('EventController@list', 'tsukuru') }}">
-                            <div class="category-image"><img src="/storage/event/1/tsukuru.jpeg" alt="ツクルの画像"></div>
+                            <div class="category-image"><img src="/storage/img/tsukuru.jpg" alt="ツクルの画像"></div>
                             <p class="category-index">ツクル</p>
                         </a>
                     </div>
                     <div class="col-6 category">
                         <a href="{{ action('EventController@list', 'deau') }}">
-                            <div class="category-image"><img src="/storage/event/1/deau.jpeg" alt="デアウの画像"></div>
+                            <div class="category-image"><img src="/storage/img/deau.jpg" alt="デアウの画像"></div>
                             <p class="category-index">デアウ</p>
                         </a>
                         </div>
                     <div class="col-6 category">
                         <a href="{{ action('EventController@list', 'intention') }}">
-                            <div class="category-image"><img src="/storage/event/1/intention.jpeg" alt="インテンションの画像"></div>
+                            <div class="category-image"><img src="/storage/img/intention.jpeg" alt="インテンションの画像"></div>
                             <p class="category-index">intention</p>
                         </a>
                     </div>
