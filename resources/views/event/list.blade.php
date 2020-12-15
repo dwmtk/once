@@ -22,15 +22,15 @@
                 </div>
                 <div class="category-image">
                     @if( $category == 'manabu' )
-                        <img src="/storage/img/manabu.jpg" alt="マナブの画像">
+                        <img src="/img/manabu.jpg" alt="マナブの画像">
                     @elseif( $category == 'asobu' )
-                        <img src="/storage/img/asobu.jpg" alt="アソブの画像">
+                        <img src="/img/asobu.jpg" alt="アソブの画像">
                     @elseif( $category == 'tsukuru' )
-                        <img src="/storage/img/tsukuru.jpg" alt="ツクルの画像">
+                        <img src="/img/tsukuru.jpg" alt="ツクルの画像">
                     @elseif( $category == 'deau' )
-                        <img src="/storage/img/deau.jpg" alt="デアウの画像">
+                        <img src="/img/deau.jpg" alt="デアウの画像">
                     @elseif( $category == 'intention' )
-                        <img src="/storage/img/intention.jpeg" alt="インテンションの画像">
+                        <img src="/img/intention.jpeg" alt="インテンションの画像">
                     @endif
                 </div>
                 @include('layouts.alert')
@@ -41,10 +41,14 @@
                         <div class="card">
                             <a href="{{ action('EventController@detail', $event->id ) }}" class="card-link">
                                 <div class="row no-gutters">
-                                    <div class="col-4 card-left">
+                                    <div class="col-3 card-left">
+                                        @if ( !isset($event->image) )
+                                        <img src="/img/no_image.jpeg" class="card-img" alt="イメージ画像はありません">
+                                        @else
                                         <img src="/storage/event/{{ $event->id }}/{{ $event->image }}" class="card-img" alt="イベント{{ $event->name }}のイメージ画像">
+                                        @endif
                                     </div>
-                                    <div class="col-8 card-right">
+                                    <div class="col-9 card-right">
                                         <div class="card-body">
                                             <h4 class="card-title">{{ $event->name }}</h4>
                                             <p class="card-text">{{ date('Y/m/d H:i', strtotime($event->start)) }} 開催！</p>
@@ -60,10 +64,14 @@
                         <div class="card">
                             <a href="{{ action('EventController@detail', $event->id ) }}" class="card-link">
                                 <div class="row no-gutters">
-                                    <div class="col-4 card-left">
+                                    <div class="col-3 card-left">
+                                        @if ( !isset($event->image) )
+                                        <img src="/img/no_image.jpeg" class="card-img" alt="イメージ画像はありません">
+                                        @else
                                         <img src="/storage/event/{{ $event->id }}/{{ $event->image }}" class="card-img" alt="イベント{{ $event->name }}のイメージ画像">
+                                        @endif
                                     </div>
-                                    <div class="col-8 card-right">
+                                    <div class="col-9 card-right">
                                         <div class="card-body">
                                             <h4 class="card-title">{{ $event->name }}</h4>
                                             <p class="card-text">開催済みのイベントです。</p>

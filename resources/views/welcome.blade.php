@@ -48,31 +48,31 @@
                 <div class="row justify-content-center">
                     <div class="col-6 category">
                         <a href="{{ action('EventController@list', 'manabu') }}">
-                            <div class="category-image"><img src="/storage/img/manabu.jpg" alt="マナブの画像"></div>
+                            <div class="category-image"><img src="/img/manabu.jpg" alt="マナブの画像"></div>
                             <p class="category-index">マナブ</p>
                         </a>
                     </div>
                     <div class="col-6 category">
                         <a href="{{ action('EventController@list', 'asobu') }}">
-                            <div class="category-image"><img src="/storage/img/asobu.jpg" alt="アソブの画像"></div>
+                            <div class="category-image"><img src="/img/asobu.jpg" alt="アソブの画像"></div>
                             <p class="category-index">アソブ</p>
                         </a>
                     </div>
                     <div class="col-6 category">
                         <a href="{{ action('EventController@list', 'tsukuru') }}">
-                            <div class="category-image"><img src="/storage/img/tsukuru.jpg" alt="ツクルの画像"></div>
+                            <div class="category-image"><img src="/img/tsukuru.jpg" alt="ツクルの画像"></div>
                             <p class="category-index">ツクル</p>
                         </a>
                     </div>
                     <div class="col-6 category">
                         <a href="{{ action('EventController@list', 'deau') }}">
-                            <div class="category-image"><img src="/storage/img/deau.jpg" alt="デアウの画像"></div>
+                            <div class="category-image"><img src="/img/deau.jpg" alt="デアウの画像"></div>
                             <p class="category-index">デアウ</p>
                         </a>
                         </div>
                     <div class="col-6 category">
                         <a href="{{ action('EventController@list', 'intention') }}">
-                            <div class="category-image"><img src="/storage/img/intention.jpeg" alt="インテンションの画像"></div>
+                            <div class="category-image"><img src="/img/intention.jpeg" alt="インテンションの画像"></div>
                             <p class="category-index">intention</p>
                         </a>
                     </div>
