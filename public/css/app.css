@@ -10904,7 +10904,7 @@ a.text-dark:focus {
 }
 
 .welcomeBlade {
-  background-color: #ffffef;
+  background-color: #fff;
   font-family: "Nunito", sans-serif;
   font-weight: 200;
   height: 100vh;
@@ -10918,17 +10918,28 @@ a.text-dark:focus {
   max-width: 768px;
   margin: 0 auto;
   text-align: center;
-  color: #522b14;
+  color: #6b6b6b;
 }
 
 .welcomeBlade .category-image {
   width: 100%;
-  height: 300px;
+  max-width: 800px;
+  position: relative;
+}
+
+.welcomeBlade .category-image::before {
+  content: "";
+  display: block;
+  padding-top: 100%;
 }
 
 .welcomeBlade .category-image img {
   width: 100%;
   height: 100%;
+  position: absolute;
+  top: 0;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .welcomeBlade #calendar {
@@ -10958,14 +10969,14 @@ a.text-dark:focus {
     bottom: 0;
     width: 40px;
     margin: auto;
-    border-bottom: 2px solid #eb5e0a;
+    border-bottom: 2px solid #ff9a60;
   }
 
   .welcomeBlade .header {
     height: 77px;
     display: flex;
     justify-content: space-between;
-    background: #eb5e0a;
+    background: #3366cc;
     position: fixed;
     top: 0;
     left: 0;
@@ -11007,19 +11018,30 @@ a.text-dark:focus {
 
   .welcomeBlade .categories .category-image {
     width: 100%;
-    height: 190px;
+    max-width: 800px;
+    position: relative;
+  }
+
+  .welcomeBlade .categories .category-image::before {
+    content: "";
+    display: block;
+    padding-top: 100%;
   }
 
   .welcomeBlade .categories .category-image img {
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
 
   .welcomeBlade .categories .category-index {
     font-size: 19px;
     font-weight: 500;
-    color: #522b14;
+    color: #6b6b6b;
   }
 
   .welcomeBlade .calendar {
@@ -11034,22 +11056,70 @@ a.text-dark:focus {
     font-size: 10px;
   }
 
-  .welcomeBlade .footer {
-    height: 80px;
-    background: #eb5e0a;
+  .welcomeBlade .calendar .fc-sun {
+    color: red;
   }
 
-  .welcomeBlade .footer .footer-link {
+  .welcomeBlade .calendar .fc-sun .fc-day-number {
+    color: red;
+  }
+
+  .welcomeBlade .calendar .fc-sat {
+    color: blue;
+  }
+
+  .welcomeBlade .calendar .fc-sat .fc-day-number {
+    color: blue;
+  }
+
+  .welcomeBlade .calendar .fc-mon,
+  .welcomeBlade .calendar .fc-tue,
+  .welcomeBlade .calendar .fc-wed,
+  .welcomeBlade .calendar .fc-thu,
+  .welcomeBlade .calendar .fc-fri {
+    color: #6b6b6b;
+  }
+
+  .welcomeBlade .calendar .fc-mon .fc-day-number,
+  .welcomeBlade .calendar .fc-tue .fc-day-number,
+  .welcomeBlade .calendar .fc-wed .fc-day-number,
+  .welcomeBlade .calendar .fc-thu .fc-day-number,
+  .welcomeBlade .calendar .fc-fri .fc-day-number {
+    color: #6b6b6b;
+  }
+
+  .welcomeBlade .calendar .fc-day-number:hover {
+    text-decoration: none;
+  }
+
+  .welcomeBlade .calendar .fc-center,
+  .welcomeBlade .calendar .fc-list-heading-main,
+  .welcomeBlade .calendar .fc-list-heading-alt,
+  .welcomeBlade .calendar .fc-list-item-time,
+  .welcomeBlade .calendar .fc-list-item-title {
+    color: #6b6b6b;
+  }
+
+  .welcomeBlade .footer {
+    height: 80px;
+    background: #3366cc;
+  }
+
+  .welcomeBlade .footer .footer-lists {
+    padding: 0;
+  }
+
+  .welcomeBlade .footer .footer-lists .footer-link {
     padding-top: 10px;
     list-style: none;
   }
 
-  .welcomeBlade .footer .footer-link > a {
+  .welcomeBlade .footer .footer-lists .footer-link > a {
     text-decoration: none;
     color: #fff;
   }
 
-  .welcomeBlade .footer .footer-link > a:hover {
+  .welcomeBlade .footer .footer-lists .footer-link > a:hover {
     opacity: 0.7;
   }
 }
@@ -11059,7 +11129,7 @@ a.text-dark:focus {
     height: auto;
     display: flex;
     justify-content: space-between;
-    background: #eb5e0a;
+    background: #3366cc;
   }
 
   .layoutsAppBlade nav .container {
@@ -11086,17 +11156,17 @@ a.text-dark:focus {
   }
 
   .layoutsAppBlade nav .container .dropdown-menu {
-    background: #ffffef;
+    background: #fff;
   }
 
   .layoutsAppBlade nav .container .dropdown-menu .dropdown-item {
-    color: #522b14;
+    color: #6b6b6b;
   }
 }
 
 .eventListBlade {
-  color: #522b14;
-  background-color: #ffffef;
+  color: #6b6b6b;
+  background-color: #fff;
   font-family: "Nunito", sans-serif;
   font-weight: 200;
   height: 100vh;
@@ -11129,12 +11199,23 @@ a.text-dark:focus {
   .eventListBlade .container .category-image {
     margin: 30px 0;
     width: 100%;
-    height: 400px;
+    max-width: 800px;
+    position: relative;
+  }
+
+  .eventListBlade .container .category-image::before {
+    content: "";
+    display: block;
+    padding-top: 100%;
   }
 
   .eventListBlade .container .category-image img {
     width: 100%;
     height: 100%;
+    position: absolute;
+    top: 0;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
 
   .eventListBlade .container .topic {
@@ -11154,37 +11235,43 @@ a.text-dark:focus {
     bottom: 0;
     width: 40px;
     margin: auto;
-    border-bottom: 2px solid #eb5e0a;
+    border-bottom: 2px solid #ff9a60;
   }
 
   .eventListBlade .container .card {
-    height: 130px;
     margin-bottom: 20px;
+    border: 1px solid #3366cc;
     border-radius: 0;
   }
 
   .eventListBlade .container .card .card-link {
-    color: #522b14;
+    color: #6b6b6b;
   }
 
-  .eventListBlade .container .card .card-link .card-left {
+  .eventListBlade .container .card .card-link .row .card-left .card-img {
     width: 100%;
-    height: 128px;
-  }
-
-  .eventListBlade .container .card .card-link .card-left .card-img {
-    width: 100%;
-    height: 100%;
+    height: 114px;
+    max-height: 114px;
+    -o-object-fit: cover;
+       object-fit: cover;
     border-radius: 0;
   }
 
-  .eventListBlade .container .card .card-link .card-right {
+  .eventListBlade .container .card .card-link .row .card-right {
     display: flex;
     align-items: center;
   }
 
-  .eventListBlade .container .card .card-link .card-right .card-body {
-    padding-left: 40px;
+  .eventListBlade .container .card .card-link .row .card-right .card-body {
+    padding: 10px;
+  }
+
+  .eventListBlade .container .card .card-link .row .card-right .card-body .card-title {
+    font-size: 18px;
+  }
+
+  .eventListBlade .container .card .card-link .row .card-right .card-body .card-text {
+    font-size: 12px;
   }
 
   .eventListBlade .container .no-card {
@@ -11194,8 +11281,8 @@ a.text-dark:focus {
 }
 
 .eventDetailBlade {
-  color: #522b14;
-  background-color: #ffffef;
+  color: #6b6b6b;
+  background-color: #fff;
   font-family: "Nunito", sans-serif;
   font-weight: 200;
   height: 100vh;
@@ -11242,18 +11329,29 @@ a.text-dark:focus {
     bottom: 0;
     width: 40px;
     margin: auto;
-    border-bottom: 2px solid #eb5e0a;
+    border-bottom: 2px solid #ff9a60;
   }
 
   .eventDetailBlade .container .event-image {
     margin: 30px 0 30px 0;
     width: 100%;
-    height: 400px;
+    max-width: 800px;
+    position: relative;
+  }
+
+  .eventDetailBlade .container .event-image::before {
+    content: "";
+    display: block;
+    padding-top: 100%;
   }
 
   .eventDetailBlade .container .event-image img {
     width: 100%;
     height: 100%;
+    position: absolute;
+    top: 0;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
 
   .eventDetailBlade .container .event-detail {
@@ -11262,7 +11360,7 @@ a.text-dark:focus {
 
   .eventDetailBlade .container .event-detail .event-title h4 {
     display: inline-block;
-    background: linear-gradient(transparent 75%, #eb5e0a 0%);
+    background: linear-gradient(transparent 90%, #ff9a60 0%);
   }
 
   .eventDetailBlade .container .event-detail .event-content {
@@ -11280,10 +11378,18 @@ a.text-dark:focus {
     font-size: 16px;
   }
 
+  .eventDetailBlade .container .event-detail dd ul {
+    padding-left: 20px;
+  }
+
+  .eventDetailBlade .container .event-detail dd ul li {
+    margin-bottom: 10px;
+  }
+
   .eventDetailBlade .container .btn {
-    border: 1px solid #eb5e0a;
-    background-color: #eb5e0a;
-    box-shadow: 0 4px #753b1a;
+    border: 1px solid #3366cc;
+    background-color: #3366cc;
+    box-shadow: 0 4px #101b30;
     color: #fff;
     font-size: 16px;
   }
