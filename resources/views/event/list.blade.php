@@ -38,39 +38,6 @@
                 <div class="topic"><h3>イベント一覧</h3></div>
                 @forelse($event_list as $event)
                     @if( strtotime($event->start) > strtotime("now") )
-                        {{-- <div class="card mb-3">
-                            <a href="{{ action('EventController@detail', $event->id ) }}" class="card-link">
-                                <div class="row no-gutters">
-                                    <div class="col-4 card-left">
-                                        <div class="card-image">
-                                            @if ( !isset($event->image) )
-                                            <img src="/img/no_image.jpeg" class="card-img" alt="イメージ画像はありません">
-                                            @else
-                                            <img src="/storage/event/{{ $event->id }}/{{ $event->image }}" class="card-img" alt="イベント{{ $event->name }}のイメージ画像">
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-8 card-right">
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                @if ( mb_strlen($event->name) >= 13)
-                                                @php
-                                                    $a = mb_substr($event->name,0,12);
-                                                @endphp
-                                                {{$a}}…
-                                                @else
-                                                    {{ $event->name }}
-                                                @endif
-                                            </h4>
-                                            <p class="card-text">{{ date('Y年m月d日 H時i分', strtotime($event->start)) }} 開催！</p>
-                                            @if ( $event->capacity <= $event->number )
-                                                <p class="card-text">※満員です。</p>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div> --}}
                         <div class="card mb-3">
                             <a href="{{ action('EventController@detail', $event->id ) }}" class="card-link">
                                 <div class="row no-gutters">
