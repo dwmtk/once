@@ -58,7 +58,7 @@
                         </ul>
                     </dd>
                 </dl>
-
+                <div class="text-center">
                 @if( $event->capacity > $event->number )
                     @if( strtotime($event->start) > strtotime("now") )
                         @if(Auth::check())
@@ -79,6 +79,19 @@
                     <button class="btn btn-disabled" disabled>参加する</button>
                     <p class="btn-message">このイベントは現在満員です。</p>
                 @endif
+                </div>
+                <dl class="event-detail mt-3">
+                    <dt>参加者一覧</dt>
+                    <dd>
+                        <ul>
+                        @forelse($attends as $attend)
+                            <li>{{ $attend->nickname }}（@if($attend->sex == 1)男性@else女性@endif／{{ $attend->work }}）</li>
+                        @empty
+                            <li>参加者はまだ居ません</li>
+                        @endforelse
+                        </ul>
+                    </dd>
+                </div>
             </div>
         </div>
     </div>
