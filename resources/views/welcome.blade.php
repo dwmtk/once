@@ -31,7 +31,7 @@
                 <div class="header-right">
                     @if (Route::has('login'))
                         @auth
-                            <div class="header-link header-right-link"><a href="{{ url('/home') }}">ホームに戻る</a></div>
+                            <div class="header-link header-right-link"><a href="{{ url('/home') }}">マイページ</a></div>
                         @else
                             <div class="header-link header-right-link"><a href="{{ route('login') }}">ログイン</a></div>
                                 @if (Route::has('register'))
@@ -82,6 +82,13 @@
 
         <div class="container calendar">
             <h2 class="topic">イベントカレンダー</h2>
+            <div class="mt-2 mb-4 h5">
+                <span class="badge badge-primary">マナブ</span>
+                <span class="badge badge-warning">アソブ</span>
+                <span class="badge badge-success">ツクル</span>
+                <span class="badge badge-danger">デアウ</span>
+                <span class="badge badge-secondary">intention</span>
+            </div>
             <div id="calendar"></div>
         </div>
 
@@ -117,11 +124,11 @@
                             title: '{{$event->name}}',
                             start: '{{ date("c",strtotime($event->start)) }}',
                             end: '{{ date("c",strtotime($event->end)) }}',
-                            color: @if($event->category == 'manabu')'#ff0000'
-                            @elseif($event->category == 'asobu')'#ff0000'
-                            @elseif($event->category == 'tsukuru')'#008000'
-                            @elseif($event->category == 'deau')'#0000ff'
-                            @elseif($event->category == 'intention')'#808080'
+                            color: @if($event->category == 'manabu')'#007bff'
+                            @elseif($event->category == 'asobu')'#ffc107'
+                            @elseif($event->category == 'tsukuru')'#28a745'
+                            @elseif($event->category == 'deau')'#dc3545'
+                            @elseif($event->category == 'intention')'#6c757d'
                             @endif,
                             eventClick: function (info) {
                             }
