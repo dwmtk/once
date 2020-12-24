@@ -95,8 +95,10 @@
         <footer>
             <div class="container footer">
                 <ul class="footer-lists">
-                    <li class="footer-link"><a href="{{ url('/terms_of_service') }}">利用規約</a></li>
-                    <li class="footer-link"><a href="{{ url('/privacy_policy') }}">プライバシーポリシー</a></li>
+                    <li class="footer-link"><a href="">利用規約</a></li>
+                    <li class="footer-link"><a href="">プライバシーポリシー</a></li>
+                    <!-- <li class="footer-link"><a href="{{ url('/terms_of_service') }}">利用規約</a></li>
+                    <li class="footer-link"><a href="{{ url('/privacy_policy') }}">プライバシーポリシー</a></li> -->
                 </ul>
             </div>
         </footer>

@@ -23,7 +23,7 @@ class EventController extends Controller
     }
     public function list($category){
         // イベント一覧
-        $event_list = Event::where('category', $category)->orderBy('start','asc')->get();
+        $event_list = Event::where('category', $category)->orderBy('start','desc')->get();
         return view('event/list')->with(['event_list' => $event_list, 'category' => $category]);
     }
     public function detail($event_id){
@@ -33,5 +33,4 @@ class EventController extends Controller
         return view('event/detail')
         ->with(['event' => $event, 'attends' => $attends]);
     }
-
 }

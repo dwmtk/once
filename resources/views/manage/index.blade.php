@@ -5,13 +5,13 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">管理者ページ</div>
+                <div class="card-header">管理者ページ<a href="{{ url('manage/howto') }}" class="float-right badge badge-info text-light mt-1">このページの使い方</a></div>
                 @include('layouts.alert')
                 <div class="card-body">
                     <h5>利用者一覧</h5>
                     <a href="{{ url('manage/member_list') }}">・利用者一覧</a>
                     <h5 class="mt-4">イベント一覧</h5>　
-                    <a type="button" class="btn btn-sm btn-primary mb-2" href="{{ url('manage/insert') }}">イベントを新規作成</a>
+                    <a class="btn btn-sm btn-primary mb-2" href="{{ url('manage/insert') }}">イベントを新規作成</a>
                     <div class="list-group">
                     @forelse($events as $event)
                         <a href="{{ action('ManageController@update_get', $event->id) }}" class="list-group-item list-group-item-action">

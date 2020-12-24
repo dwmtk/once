@@ -5,7 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">イベント詳細・編集画面　<a class="btn btn-sm btn-outline-secondary float-right" href="{{ url('manage/index') }}">戻る</a><a href="{{ action('ManageController@stop', $event->id) }}" class="btn btn-warning btn-sm disabled">募集を打ち切る※未実装</a></div>
+                <div class="card-header">イベント詳細・編集画面　
+                    <a class="btn btn-sm btn-outline-secondary float-right ml-1" href="{{ url('manage/index') }}">戻る</a>
+                    <a class="btn btn-sm btn-outline-secondary float-right" href="{{ action('EventController@detail', $event->id) }}" target="_blank">詳細画面</a>
+                    <a href="{{ action('ManageController@stop', $event->id) }}" class="btn btn-warning btn-sm disabled">募集を打ち切る※未実装</a>
+                </div>
                 @include('layouts.alert')
                 <div class="card-body">
                 <h5>参加者一覧（定員：{{ $event->capacity }}人／参加：{{ $event->number }}人）</h5>
@@ -42,7 +46,7 @@
                 @endforelse
                 </ul>
 
-                <h5 class="mt-4">イベント詳細・編集　<a class="btn btn-sm btn-outline-secondary" href="{{ action('EventController@detail', $event->id) }}" target="_blank">詳細画面</a></h5>
+                <h5 class="mt-4">イベント詳細・編集</h5>
                 <form method="POST" action="{{ url('manage/update') }}" class="col-md-12" enctype="multipart/form-data" onSubmit="return dialog('イベントを編集してよろしいですか？')">
                     @csrf
                     <div class="form-group">
@@ -63,7 +67,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="content" class="col-md-5 col-form-label">内容（HTMLコードの記述も可能）<span class="badge badge-danger ml-1">必須</span></label>
+                        <label for="content" class="col-md-5 col-form-label">内容（HTMLコードの記述も可能）<span class="badge badge-danger ml-1">必須</span><br><small>※注意：スマホの絵文字利用不可</small></label>
                         <textarea id="content" class="col-md-12 form-control @error('content') is-invalid @enderror" name="content" style="height:600px;" required>{{ html_entity_decode($event->content) }}</textarea>
                     </div>
                     <div class="form-group">
