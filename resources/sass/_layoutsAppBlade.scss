@@ -1,5 +1,40 @@
 .layoutsAppBlade {
-    @media(max-width:768px) {
+    @media(max-width: 1920px) {
+        nav {
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+            background: #3366cc;
+            .container {
+                max-width: 1080px;
+                margin: 0 auto;
+                h1 {
+                    margin-bottom: 0;
+                    .navbar-brand {
+                        font-size: 2.25rem;
+                        color: #fff;
+                    }
+                }
+                .nav-item {
+                    .nav-link {
+                        display:inline-block;
+                        color: #fff;
+                        &:hover {
+                            color: rgba(255,255,255,.7);
+                        }
+                    }
+                }
+                .dropdown-menu {
+                    background: #fff;
+                    .dropdown-item {
+                        color: #6b6b6b;
+                    }
+                }
+            }
+        }
+    }
+
+    @media(max-width: 768px) {
         nav {
             height: auto;
             display: flex;
