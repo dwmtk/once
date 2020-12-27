@@ -80,19 +80,21 @@
                     {{-- 空きあり --}}
                     @if( strtotime($event->start) > strtotime("now") )
                         {{-- 開催前 --}}
-                        @if(isset($attend_this_user))
+                        @if(Auth::check())
                             {{-- 会員 --}}
-                            @if($attend_this_user->quit_flg == -1 || $attend_this_user->quit_flg == 1)
-                                {{-- 参加前 or 欠席済 --}}
-                                <form method="POST" action="{{ url('event/end') }}" onSubmit="return dialog('イベントに参加しますか？')">
-                                    @csrf
-                                    <input type="submit" class="btn btn-abled" value="参加する">
-                                    <input type="hidden" name="event_id" value="{{ $event->id }}">
-                                </form>
-                            @elseif($attend_this_user->quit_flg == 0)
-                                {{-- 参加済 --}}
-                                <p class="btn-message">参加済みです。</p>
-                                <button class="btn btn-disabled" disabled>参加する</button>
+                            @if(isset($attend_this_user))
+                                @if($attend_this_user->quit_flg == -1 || $attend_this_user->quit_flg == 1)
+                                    {{-- 参加前 or 欠席済 --}}
+                                    <form method="POST" action="{{ url('event/end') }}" onSubmit="return dialog('イベントに参加しますか？')">
+                                        @csrf
+                                        <input type="submit" class="btn btn-abled" value="参加する">
+                                        <input type="hidden" name="event_id" value="{{ $event->id }}">
+                                    </form>
+                                @elseif($attend_this_user->quit_flg == 0)
+                                    {{-- 参加済 --}}
+                                    <p class="btn-message">参加済みです。</p>
+                                    <button class="btn btn-disabled" disabled>参加する</button>
+                                @endif
                             @endif
                         @else
                             {{-- 非会員 --}}
