@@ -132,4 +132,7 @@ class ManageController extends Controller
         $users = \DB::select('select * from users order by id desc');
         return view('manage/member_list')->with(['users' => $users]);
     }
+    public function howto(){
+        return view('manage/howto');
+    }
 }

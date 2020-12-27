@@ -46,3 +46,4 @@ Route::get('/manage/update/{event_id}', 'ManageController@update_get');
 Route::post('/manage/update', 'ManageController@update_post');
 Route::get('/manage/stop', 'ManageController@stop');
 Route::get('/manage/member_list', 'ManageController@member_list');
+Route::get('/manage/howto', 'ManageController@howto');

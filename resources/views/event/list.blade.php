@@ -82,7 +82,16 @@
                                     </div>
                                     <div class="col-8 card-right">
                                         <div class="card-body">
-                                            <h4 class="card-title">{{ $event->name }}</h4>
+                                            <h4 class="card-title">
+                                                @if ( mb_strlen($event->name) >= 16)
+                                                    @php
+                                                        $name = mb_substr($event->name,0,14);
+                                                    @endphp
+                                                    {{$name}}…
+                                                @else
+                                                    {{ $event->name }}
+                                                @endif
+                                            </h4>
                                             <p class="card-text">開催済みのイベントです。</p>
                                         </div>
                                     </div>
