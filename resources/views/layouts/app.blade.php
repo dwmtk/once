@@ -71,6 +71,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ url('home') }}">マイページ</a>
+                                    <a class="dropdown-item" href="{{ url('home/edit') }}">プロフィール編集</a>
                                     @if( Auth::user()->user_type == 2 )
                                     <a class="dropdown-item" href="{{ url('manage/index') }}">管理ページ</a>
                                     @endif
