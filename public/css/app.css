@@ -11412,5 +11412,14 @@ a.text-dark:focus {
     margin-top: 15px;
     font-size: 16px;
   }
-}
 
+  .absence {
+    background-color: lightgray;
+    padding: 2px 5px;
+    font-size: 14px;
+  }
+
+  .bottom {
+    margin-bottom: 6px;
+  }
+}

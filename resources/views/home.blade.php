@@ -1,46 +1,80 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">マイページ<a class="btn btn-sm btn-outline-secondary float-right" href="{{ url('home/edit') }}">プロフィール編集</a></div>
-                @include('layouts.alert')
-                <div class="card-body">
-                    ・参加イベント一覧
-                    @forelse($my_events as $my_event)
-                        <div>
-                        <a href="{{ action('EventController@detail', $my_event->event_id) }}">{{ $my_event->name }}</a>
-                        @if($my_event->quit_flg == 0)
-                            {{-- 未欠席 --}}
-                            @if( strtotime($my_event->start) > strtotime("now") )
-                                {{-- 開催前 欠席ボタンが押せる --}}
-                                <form method="POST" action="{{ url('event/quit') }}" class="d-inline-block" onSubmit="return dialog('イベントを欠席しますか？')">
-                                    @csrf
-                                    <input type="submit" class="btn btn-sm btn-primary" value="欠席する">
-                                    <input type="hidden" name="execute" value="on">
-                                    <input type="hidden" name="id" value="{{ $my_event->id }}">
-                                </form>
-                            @elseif( strtotime($my_event->start) <= strtotime("now") )
-                                {{-- 開催済み 欠席ボタンが押せないようにする --}}
-                                <button class="btn btn-sm btn-primary" disabled>欠席する</button>
-                            @endif
-                        @elseif($my_event->quit_flg == 1)
-                            {{-- 欠席済み 欠席ボタンが押せないようにする --}}
-                            <button class="btn btn-sm btn-primary" disabled>欠席する</button>
-                            <span class="badge badge-danger">欠席</span>
-                        @endif
+<div class="eventListBlade">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+              　　@include('layouts.alert')
+                  <div class="card-body">
+                      <div class="topic">
+                        <h3>参加イベント一覧</h3>
+                      </div>
+                  </div>
+                  @forelse($my_events as $my_event)
+                      @if( strtotime($my_event->start) > strtotime("now") )
+                            <div class="card mb-3">
+                                <div class="card-link">
+                                    <div class="row no-gutters">
+                                        <div class="col-4 my-auto card-left">
+                                                @if ( !isset($my_event->image) )
+                                                <img src="/img/no_image.jpeg" class="card-img" alt="イメージ画像はありません">
+                                                @else
+                                                <img src="/storage/event/{{ $my_event->id }}/{{ $my_event->image }}" class="card-img" alt="イベント{{ $my_event->name }}のイメージ画像">
+                                                @endif
+                                        </div>
+                                        <div class="col-8 card-right">
+                                            <div class="card-body">
+                                                <a href="{{ action('EventController@detail', $my_event->id ) }}">
+                                                    <h4 class="card-title">
+                                                        @if ( mb_strlen($my_event->name) >= 16)
+                                                            @php
+                                                                $name = mb_substr($my_event->name,0,14);
+                                                            @endphp
+                                                            {{$name}}…
+                                                        @else
+                                                            {{ $my_event->name }}
+                                                        @endif
+                                                    </h4>
+                                                </a>
+                                                <p class="card-text bottom">{{ date('Y年m月d日 H時i分', strtotime($my_event->start)) }} 開催！</p>
+                                                <a class="btn absence" href="#" role="button">欠席する</a>
+                                            </div>
 
-                        @if( strtotime($my_event->start) <= strtotime("now") )
-                            {{-- 開催済み --}}
-                            <span class="badge badge-secondary">開催済み</span>
-                        @endif
-                        </div>
-                    @empty
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                      @else
+                          <div class="card mb-3">
+                              <div class="card-link">
+                                  <div class="row no-gutters">
+                                      <div class="col-4 card-left">
+                                              @if ( !isset($my_event->image) )
+                                              <img src="/img/no_image.jpeg" class="card-img" alt="イメージ画像はありません">
+                                              @else
+                                              <img src="/storage/event/{{ $my_event->id }}/{{ $my_event->image }}" class="card-img" alt="イベント{{ $my_event->name }}のイメージ画像">
+                                              @endif
+                                      </div>
+                                      <div class="col-8 card-right">
+                                          <div class="card-body">
+                                              <a href="{{ action('EventController@detail', $my_event->id ) }}">
+                                                  <h4 class="card-title">{{ $my_event->name }}</h4>
+                                              </a>
+                                              <p class="card-text">開催済みのイベントです。</p>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      @endif
+
+                  @empty
+                  <div>
                     ・過去参加したイベントはありません。
-                    @endforelse
-                </div>
+                  </div>
+                  @endforelse
+
             </div>
         </div>
     </div>
