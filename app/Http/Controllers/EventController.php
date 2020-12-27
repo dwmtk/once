@@ -29,8 +29,15 @@ class EventController extends Controller
     public function detail($event_id){
         // イベント詳細
         $event = Event::find($event_id);
-        $attends = Attend::getAttendUsers($event_id);
+        // 参加者一覧
+        $attends = Attend::getAttendEventUsers($event_id);
+        // 参加状況（$attend_this_user = null：非会員・非参加、0：参加、1：欠席）
+        $attend_this_user = null;
+        if($this->middleware('Auth')){
+            // ログイン済みのユーザ
+            $attend_this_user = Attend::getAttendThisUser(Auth::id(), $event_id);
+        }
         return view('event/detail')
-        ->with(['event' => $event, 'attends' => $attends]);
+        ->with(['event' => $event, 'attends' => $attends, 'attend_this_user' => $attend_this_user]);
     }
 }

@@ -20,10 +20,26 @@
                         @endif
                     </h2>
                 </div>
-                @include('layouts.alert')
-
                 <div class="topic"><h3>イベント詳細</h3></div>
-
+                @include('layouts.alert')
+                @if( strtotime($event->start) <= strtotime("now") )
+                    {{-- 開催済み --}}
+                    <div class="alert alert-secondary">開催済みのイベントです。</div>
+                @else
+                    {{-- 開催前 --}}
+                    @if(isset($attend_this_user))
+                        @if($attend_this_user->quit_flg == 0)
+                            {{-- 未欠席 --}}                        
+                            <div class="alert alert-info">参加済みのイベントです。</div>
+                        @elseif($attend_this_user->quit_flg == 1)
+                            {{-- 欠席済み --}}
+                            <div class="alert alert-info">欠席済みのイベントです。</div>
+                        @endif
+                    @endif
+                    @if( $event->capacity <= $event->number )
+                        <div class="alert alert-info">このイベントは現在満員です。</div>
+                    @endif
+                @endif
                 <div class="event-image">
                     @if ( !isset($event->image) )
                     <img src="/img/no_image.jpeg" alt="イメージ画像はありません">
@@ -60,24 +76,56 @@
                 </dl>
                 <div class="text-center">
                 @if( $event->capacity > $event->number )
+                    {{-- 参加ボタン --}}
+                    {{-- 空きあり --}}
                     @if( strtotime($event->start) > strtotime("now") )
-                        @if(Auth::check())
-                            <form method="POST" action="{{ url('event/end') }}" onSubmit="return dialog('イベントに参加しますか？')">
-                                @csrf
-                                <input type="submit" class="btn btn-abled" value="参加する">
-                                <input type="hidden" name="event_id" value="{{ $event->id }}">
-                            </form>
+                        {{-- 開催前 --}}
+                        @if(isset($attend_this_user))
+                            {{-- 会員 --}}
+                            @if($attend_this_user->quit_flg == -1 || $attend_this_user->quit_flg == 1)
+                                {{-- 参加前 or 欠席済 --}}
+                                <form method="POST" action="{{ url('event/end') }}" onSubmit="return dialog('イベントに参加しますか？')">
+                                    @csrf
+                                    <input type="submit" class="btn btn-abled" value="参加する">
+                                    <input type="hidden" name="event_id" value="{{ $event->id }}">
+                                </form>
+                            @elseif($attend_this_user->quit_flg == 0)
+                                {{-- 参加済 --}}
+                                <p class="btn-message">参加済みです。</p>
+                                <button class="btn btn-disabled" disabled>参加する</button>
+                            @endif
                         @else
-                            <button class="btn btn-disabled" disabled>参加する</button>
+                            {{-- 非会員 --}}
                             <p class="btn-message">参加するには会員登録をお願いします。</p>
+                            <button class="btn btn-disabled" disabled>参加する</button>
                         @endif
                     @else
-                        <button class="btn btn-disabled" disabled>参加する</button>
+                        {{-- 開催済 --}}
                         <p class="btn-message">開催済みのイベントです。</p>
+                        <button class="btn btn-disabled" disabled>参加する</button>
                     @endif
                 @else
-                    <button class="btn btn-disabled" disabled>参加する</button>
+                    {{-- 満員 --}}
                     <p class="btn-message">このイベントは現在満員です。</p>
+                    <button class="btn btn-disabled" disabled>参加する</button>
+                @endif
+                </div>
+                <div class="text-center mt-4">
+                @if(isset($attend_this_user))
+                    {{-- 欠席ボタン --}}
+                    {{-- 会員 --}}
+                    @if($attend_this_user->quit_flg == 0)
+                        {{-- 未欠席 --}}
+                        @if(strtotime($event->start) > strtotime("now"))
+                            {{-- 開催前 --}}
+                            {{-- 欠席ボタンが押せる --}}
+                            <form method="POST" action="{{ url('event/quit') }}" onSubmit="return dialog('イベントを欠席しますか？')">
+                                @csrf
+                                <input type="submit" class="btn btn-abled" value="欠席する">
+                                <input type="hidden" name="attend_id" value="{{ $attend_this_user->id }}">
+                            </form>
+                        @endif
+                    @endif
                 @endif
                 </div>
                 <dl class="event-detail mt-3">
@@ -91,7 +139,7 @@
                         @endforelse
                         </ul>
                     </dd>
-                </div>
+                </dl>
             </div>
         </div>
     </div>

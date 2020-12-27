@@ -7,7 +7,13 @@
             <div class="card">
                 <div class="card-header">エラー</div>
                 <div class="card-body">
-                    エラーが発生しました。
+                    <div class="alert alert-danger mt-2">
+                    @if(isset($message))
+                        {{ $message }}
+                    @else
+                        エラーが発生しました。
+                    @endif
+                    </div>
                 </div>
             </div>
         </div>

@@ -25,22 +25,30 @@ class AttendController extends Controller
 
     public function attend(Request $request){
         $event = Event::find($request->event_id);
-        // 参加済みかの確認　※欠席を含む
-        $attend = Attend::getAttendAll(Auth::id(), $event->id);
-        if(!empty($attend)){
-            if($attend->quit_flg == 0){
-                // 参加履歴あり
-                return redirect()->back()->with(['error' => 'すでに参加済みのイベントです。',]);
-            } elseif($attend->quit_flg == 1) {
-                // 欠席履歴あり
-                return redirect()->back()->with(['error' => '一度欠席したため参加できません。再参加したい場合はお問い合わせフォームからお願いします。',]);
-            }
-        }
         if($event->capacity > $event->number){
-            $attend = new Attend;
-            $attend->event_id = $event->id;
-            $attend->user_id = Auth::id();
-            $attend->save();
+            // 定員に空きがある場合
+            // 参加履歴を取得
+            $attend = Attend::getAttendThisUser(Auth::id(), $event->id);
+            if(!empty($attend)){
+                // 参加履歴がある場合
+                if($attend->quit_flg == 1){
+                    // 欠席している場合
+                    // 参加に更新
+                    $attend->quit_flg = 0;
+                    $attend->save();
+                } else {
+                    // 参加済みの場合
+                    return redirect()->back()->with(['error' => 'すでに参加済みのイベントです。',]);
+                }
+            }else{
+                // 参加履歴がない場合
+                // 参加履歴作成
+                $attend = new Attend;
+                $attend->event_id = $event->id;
+                $attend->user_id = Auth::id();
+                $attend->save();
+            }
+            // イベントの参加人数を＋１
             $event->number = $event->number + 1;
             $event->save();
             
@@ -55,28 +63,30 @@ class AttendController extends Controller
 
     public function quit(Request $request){
         // イベント欠席
-        if($request->execute == 'on'){
-            // イベントに参加しているかどうか確認
-            $attend = Attend::find($request->id);
-            if(empty($attend)){
-                // イベントに参加していない場合
-                return view('error');
-            }
-            // ステータスを欠席に変更
-            $attend->quit_flg = '1';
-            $attend->save();
-            
-            // イベントの参加人数を1人減らす
-            $event = Event::find($attend->event_id);
-            $event->number = $event->number - 1;
-            $event->save();
-
-            // 欠席完了メール送信
-            $to = [['email' => Auth::user()->email, 'name' => Auth::user()->nickname.'様']];
-            Mail::to($to)->send(new SendQuitMail(Auth::user(), $event));
-
-            return redirect('home')->with(['success' => 'イベントの欠席が完了しました。']);
+        
+        // 参加履歴を確認
+        $attend = Attend::find($request->attend_id);
+        if(empty($attend)){
+            // 参加履歴が無い場合エラー
+            return view('error')->with('message', '参加していないイベントのため欠席できません。');
         }
-        return redirect('home');
+        if($attend->quit_flg == 1){
+            // 欠席済の場合エラー
+            return view('error')->with('message', 'すでに欠席済みのイベントです。');
+        }
+        // ステータスを欠席に変更
+        $attend->quit_flg = '1';
+        $attend->save();
+        
+        // イベントの参加人数を1人減らす
+        $event = Event::find($attend->event_id);
+        $event->number = $event->number - 1;
+        $event->save();
+
+        // 欠席完了メール送信
+        $to = [['email' => Auth::user()->email, 'name' => Auth::user()->nickname.'様']];
+        Mail::to($to)->send(new SendQuitMail(Auth::user(), $event));
+
+        return redirect('home')->with(['success' => 'イベントの欠席が完了しました。']);
     }
 }

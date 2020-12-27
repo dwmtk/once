@@ -75,7 +75,7 @@ class ManageController extends Controller
     }
     public function update_get($event_id){
         $event = Event::find($event_id);
-        $attends = Attend::getAttendUsersAll($event->id);
+        $attends = Attend::getAttendEventUsers_plusQuit($event->id);
         return view('manage/update')->with(['event' => $event, 'attends' => $attends]);
     }
     public function update_post(Request $request){
