@@ -72,7 +72,7 @@ body {
   line-height: 1.6;
   color: #212529;
   text-align: left;
-  
+
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -11727,16 +11727,6 @@ a.text-dark:focus {
   .eventDetailBlade .container .btn-message {
     margin-top: 15px;
     font-size: 16px;
-  }
-
-  .absence {
-    background-color: lightgray;
-    padding: 2px 5px;
-    font-size: 14px;
-  }
-
-  .bottom {
-    margin-bottom: 6px;
   }
 
 }
