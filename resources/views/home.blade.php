@@ -54,8 +54,8 @@
                     </a>
                 </div>
                 @empty
-                <div>
-                  ・過去参加したイベントはありません。
+                <div class="text-center">
+                過去参加したイベントはありません。
                 </div>
                 @endforelse
 

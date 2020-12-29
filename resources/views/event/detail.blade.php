@@ -75,10 +75,10 @@
                     </dd>
                 </dl>
                 <div class="text-center">
-                @if( $event->capacity > $event->number )
-                    {{-- 参加ボタン --}}
-                    {{-- 空きあり --}}
-                    @if( strtotime($event->start) > strtotime("now") )
+                @if( strtotime($event->start) > strtotime("now") )
+                {{-- 参加ボタン --}}
+                {{-- 空きあり --}}
+                    @if( $event->capacity > $event->number )
                         {{-- 開催前 --}}
                         @if(Auth::check())
                             {{-- 会員 --}}
@@ -92,7 +92,14 @@
                             @elseif($attend_this_user->quit_flg == 0)
                                 {{-- 参加済 --}}
                                 <p class="btn-message">参加済みです。</p>
-                                <button class="btn btn-disabled" disabled>参加する</button>
+                                <div class="d-inline-flex">
+                                    <button class="btn btn-disabled mr-2" disabled>参加する</button>
+                                    <form method="POST" action="{{ url('event/quit') }}" onSubmit="return dialog('イベントを欠席しますか？')">
+                                        @csrf
+                                        <input type="submit" class="btn btn-abled" value="欠席する">
+                                        <input type="hidden" name="attend_id" value="{{ $attend_this_user->id }}">
+                                    </form>
+                                </div>
                             @endif
                         @else
                             {{-- 非会員 --}}
@@ -100,32 +107,22 @@
                             <button class="btn btn-disabled" disabled>参加する</button>
                         @endif
                     @else
-                        {{-- 開催済 --}}
-                        <p class="btn-message">開催済みのイベントです。</p>
-                        <button class="btn btn-disabled" disabled>参加する</button>
+                        {{-- 満員 --}}
+                        <div class="d-inline-flex">
+                            <button class="btn btn-disabled" disabled>参加する</button>
+                            @if(isset($attend_this_user) && $attend_this_user->quit_flg == 0)
+                                {{-- 参加済 --}}
+                                <form method="POST" action="{{ url('event/quit') }}" onSubmit="return dialog('イベントを欠席しますか？')">
+                                    @csrf
+                                    <input type="submit" class="btn btn-abled ml-2" value="欠席する">
+                                    <input type="hidden" name="attend_id" value="{{ $attend_this_user->id }}">
+                                </form>
+                            @endif
+                        </div>
                     @endif
                 @else
-                    {{-- 満員 --}}
-                    <p class="btn-message">このイベントは現在満員です。</p>
+                    {{-- 開催済 --}}
                     <button class="btn btn-disabled" disabled>参加する</button>
-                @endif
-                </div>
-                <div class="text-center mt-4">
-                @if(isset($attend_this_user))
-                    {{-- 欠席ボタン --}}
-                    {{-- 会員 --}}
-                    @if($attend_this_user->quit_flg == 0)
-                        {{-- 未欠席 --}}
-                        @if(strtotime($event->start) > strtotime("now"))
-                            {{-- 開催前 --}}
-                            {{-- 欠席ボタンが押せる --}}
-                            <form method="POST" action="{{ url('event/quit') }}" onSubmit="return dialog('イベントを欠席しますか？')">
-                                @csrf
-                                <input type="submit" class="btn btn-abled" value="欠席する">
-                                <input type="hidden" name="attend_id" value="{{ $attend_this_user->id }}">
-                            </form>
-                        @endif
-                    @endif
                 @endif
                 </div>
                 <dl class="event-detail mt-3">
