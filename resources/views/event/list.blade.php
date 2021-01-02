@@ -37,68 +37,41 @@
 
                 <div class="topic"><h3>イベント一覧</h3></div>
                 @forelse($event_list as $event)
-                    @if( strtotime($event->start) > strtotime("now") )
-                        <div class="card mb-3">
-                            <a href="{{ action('EventController@detail', $event->id ) }}" class="card-link">
-                                <div class="row no-gutters">
-                                    <div class="col-4 my-auto card-left">
-                                            @if ( !isset($event->image) )
-                                            <img src="/img/no_image.jpeg" class="card-img" alt="イメージ画像はありません">
+                    <div class="card mb-3">
+                        <a href="{{ action('EventController@detail', $event->id ) }}" class="card-link">
+                            <div class="row no-gutters">
+                                <div class="col-4 my-auto card-left">
+                                        @if ( !isset($event->image) )
+                                        <img src="/img/no_image.jpeg" class="card-img" alt="イメージ画像はありません">
+                                        @else
+                                        <img src="/storage/event/{{ $event->id }}/{{ $event->image }}" class="card-img" alt="イベント{{ $event->name }}のイメージ画像">
+                                        @endif
+                                </div>
+                                <div class="col-8 card-right">
+                                    <div class="card-body">
+                                        <h4 class="card-title">
+                                            @if ( mb_strlen($event->name) >= 16)
+                                                @php
+                                                    $name = mb_substr($event->name,0,14);
+                                                @endphp
+                                                {{$name}}…
                                             @else
-                                            <img src="/storage/event/{{ $event->id }}/{{ $event->image }}" class="card-img" alt="イベント{{ $event->name }}のイメージ画像">
+                                                {{ $event->name }}
                                             @endif
-                                    </div>
-                                    <div class="col-8 card-right">
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                @if ( mb_strlen($event->name) >= 16)
-                                                    @php
-                                                        $name = mb_substr($event->name,0,14);
-                                                    @endphp
-                                                    {{$name}}…
-                                                @else
-                                                    {{ $event->name }}
-                                                @endif
-                                            </h4>
+                                        </h4>
+                                        @if( strtotime($event->start) > strtotime("now") )
                                             <p class="card-text">{{ date('Y年m月d日 H時i分', strtotime($event->start)) }} 開催！</p>
                                             @if ( $event->capacity <= $event->number )
                                                 <p class="card-text">※満員です。</p>
                                             @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    @else
-                        <div class="card mb-3">
-                            <a href="{{ action('EventController@detail', $event->id ) }}" class="card-link">
-                                <div class="row no-gutters">
-                                    <div class="col-4 card-left">
-                                            @if ( !isset($event->image) )
-                                            <img src="/img/no_image.jpeg" class="card-img" alt="イメージ画像はありません">
-                                            @else
-                                            <img src="/storage/event/{{ $event->id }}/{{ $event->image }}" class="card-img" alt="イベント{{ $event->name }}のイメージ画像">
-                                            @endif
-                                    </div>
-                                    <div class="col-8 card-right">
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                @if ( mb_strlen($event->name) >= 16)
-                                                    @php
-                                                        $name = mb_substr($event->name,0,14);
-                                                    @endphp
-                                                    {{$name}}…
-                                                @else
-                                                    {{ $event->name }}
-                                                @endif
-                                            </h4>
+                                        @else
                                             <p class="card-text">開催済みのイベントです。</p>
-                                        </div>
+                                        @endif
                                     </div>
                                 </div>
-                            </a>
-                        </div>
-                    @endif
+                            </div>
+                        </a>
+                    </div>
                 @empty
                     <div class="no-card">まだイベントがありません。<br>今後のイベントを楽しみにお待ちください！</div>
                 @endforelse

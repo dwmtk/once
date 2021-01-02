@@ -24,7 +24,13 @@ class AttendController extends Controller
     }
 
     public function attend(Request $request){
+        // イベント参加
+
         $event = Event::find($request->event_id);
+        if($event->stop_flg == 1){
+            //打ち切りの場合
+            return redirect()->back()->with(['error' => 'イベントが打ち切られているため参加できません。',]);
+        }
         if($event->capacity > $event->number){
             // 定員に空きがある場合
             // 参加履歴を取得
@@ -42,11 +48,11 @@ class AttendController extends Controller
                 }
             }else{
                 // 参加履歴がない場合
-                // 参加履歴作成
-                $attend = new Attend;
-                $attend->event_id = $event->id;
-                $attend->user_id = Auth::id();
-                $attend->save();
+                // 参加
+                $attend_new = new Attend;
+                $attend_new->event_id = $event->id;
+                $attend_new->user_id = Auth::id();
+                $attend_new->save();
             }
             // イベントの参加人数を＋１
             $event->number = $event->number + 1;
@@ -65,7 +71,7 @@ class AttendController extends Controller
         // イベント欠席
         
         // 参加履歴を確認
-        $attend = Attend::find($request->attend_id);
+        $attend = Attend::getAttendThisUser($request->user_id, $request->event_id);
         if(empty($attend)){
             // 参加履歴が無い場合エラー
             return view('error')->with('message', '参加していないイベントのため欠席できません。');

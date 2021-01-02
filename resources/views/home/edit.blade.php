@@ -7,7 +7,6 @@
             <div class="card">
                 <div class="card-header">プロフィール設定
                     <span class="float-right">
-                        <a class="btn btn-sm btn-outline-secondary" href="{{ url('/home') }}">マイページ</a>
                         <a class="btn btn-sm btn-outline-secondary" href="{{ url('home/edit_password') }}">パスワード変更</a>
                     </span>
                 </div>

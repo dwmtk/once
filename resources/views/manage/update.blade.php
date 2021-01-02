@@ -8,10 +8,29 @@
                 <div class="card-header">イベント詳細・編集画面　
                     <a class="btn btn-sm btn-outline-secondary float-right ml-1" href="{{ url('manage/index') }}">戻る</a>
                     <a class="btn btn-sm btn-outline-secondary float-right" href="{{ action('EventController@detail', $event->id) }}" target="_blank">詳細画面</a>
-                    <a href="{{ action('ManageController@stop', $event->id) }}" class="btn btn-warning btn-sm disabled">募集を打ち切る※未実装</a>
+                    @if($event->stop_flg == 0)
+                        <form method="POST" action="{{ url('manage/stop') }}" onSubmit="return dialog('募集を打ち切りますか？')">
+                            @csrf
+                            <input type="submit" class="btn btn-warning" value="募集を打ち切る">
+                            <input type="hidden" name="event_id" value="{{ $event->id }}">
+                            <input type="hidden" name="stop_on_off" value="on">
+                        </form>
+                    @elseif($event->stop_flg == 1)
+                        <form method="POST" action="{{ url('manage/stop') }}" onSubmit="return dialog('募集の打ち切りを解除しますか？')">
+                            @csrf
+                            <input type="submit" class="btn btn-warning" value="募集の打ち切りを解除">
+                            <input type="hidden" name="event_id" value="{{ $event->id }}">
+                            <input type="hidden" name="stop_on_off" value="off">
+                        </form>
+                    @endif
                 </div>
-                @include('layouts.alert')
                 <div class="card-body">
+                @include('layouts.alert')
+                @if($event->stop_flg == 1)
+                <div class="alert alert-warning">
+                    募集打ち切りされています
+                </div>
+                @endif
                 <h5>参加者一覧（定員：{{ $event->capacity }}人／参加：{{ $event->number }}人）</h5>
                 <ul class="list-group">
                 @forelse($attends as $attend)

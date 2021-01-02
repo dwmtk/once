@@ -121,12 +121,18 @@ class ManageController extends Controller
         $event->save();
         return redirect()->back()->with(['success' => 'イベントの編集が完了しました。']);
     }
-    public function stop($event_id){
+    public function stop(Request $request){
         //イベント打ち切り
-        $event = Event::find($event_id);
-        $event->stop_flg = '1';
+        $event = Event::find($request->event_id);
+        if($request->stop_on_off == 'on'){
+            $event->stop_flg = '1';
+            $msg = 'イベントを打ち切りました。';
+        }elseif($request->stop_on_off == 'off'){
+            $event->stop_flg = '0';
+            $msg = 'イベントの打ち切りを取り消しました。';
+        }
         $event->save();
-        return redirect()->back()->with(['warning' => 'イベントを打ち切りました。']);
+        return redirect()->back()->with(['success' => $msg]);
     }
     public function member_list(){
         $users = \DB::select('select * from users order by id desc');

@@ -28,7 +28,7 @@ class Attend extends Model
     //     return \DB::select('select * from users inner join attends on users.id = attends.user_id where attends.event_id = ?',[$event_id]);
     // }
     public static function getAttendThisUser($user_id, $event_id){
-        // ユーザがイベントに参加しているかを確認　※辞退済みも含む
+        // ユーザの参加しているイベントを確認
         return Attend::where('user_id', $user_id)->where('event_id', $event_id)->first();
     }
 }
